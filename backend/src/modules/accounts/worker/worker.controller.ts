@@ -3,17 +3,21 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseUUIDPipe,
   Post,
   Query,
 } from '@nestjs/common';
-import { CreateWorkerDto } from './dto/createWorker.dto';
-import { GetAllFilters } from './dto/getAllFilters.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { CreateWorkerDto } from './dto/request/createWorker.dto';
+import { GetAllFilters } from './dto/request/getAllFilters.dto';
 import { Worker } from './worker.entity';
 import { WorkerService } from './worker.service';
 
 @Controller('worker')
+@ApiTags('Worker')
 export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
@@ -24,7 +28,7 @@ export class WorkerController {
 
   @Get()
   async getAll(@Query() filters: GetAllFilters) {
-    return this.getAll(filters);
+    return this.workerService.getAll(filters);
   }
 
   @Get(':id')
@@ -42,6 +46,7 @@ export class WorkerController {
   }
   */
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
     return this.workerService.delete(id);
