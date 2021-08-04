@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --QGPrimary: #3C5399;
+  --QG000: #A5B8F0;
+  --QG100: #5C81ED;
+  --QG200: #4965BA;
+  --QG300: #283766;
+  --QG400: #4C546E;
+  --white: #FFFFFF;
+  --black: #2F3032;
+  --grey000: #F2F2F2;
+  --grey100: #D3D3D3;
+  --grey200: #A4A4A4;
+  --yellow: #FFD037;
+  --green: #00B728;
+}
+
+html,
+body {
+  color: var(--back);
+  font: 400 1rem 'Roboto', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button{
+  border-radius: 20px;
+  text-transform: uppercase;
+  background: var(--QG300);
+  color: var(--white);
+  font-size: 700;
+  border: none;
+  letter-spacing: 0.8px;
+
+}
+
+h1{
+  font-size: 3.1rem;
+  line-height: 3.75rem;
+}
