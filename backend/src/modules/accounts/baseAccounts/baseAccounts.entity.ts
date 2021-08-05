@@ -82,7 +82,7 @@ export class BaseAccounts {
   @Column()
   password: string;
 
-  @ApiProperty({ description: 'Status da pessoa' })
+  @ApiProperty({ description: 'Status da pessoa', readOnly: true })
   @Column()
   @IsBoolean()
   status: boolean;
