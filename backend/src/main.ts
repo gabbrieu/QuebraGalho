@@ -16,7 +16,6 @@ async function bootstrap() {
     .setTitle('API QuebraGalho')
     .setDescription('API das rotas do QuebraGalho')
     .setVersion('1.0')
-    .addTag('quebra-galho')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
