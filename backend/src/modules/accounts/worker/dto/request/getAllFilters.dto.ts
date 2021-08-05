@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsOptional, Max, Min } from 'class-validator';
+import { IsBooleanString, IsOptional, Max, Min } from 'class-validator';
 
 export class GetAllFilters {
   @ApiPropertyOptional({
@@ -24,4 +24,10 @@ export class GetAllFilters {
   })
   @IsOptional()
   name?: string;
+
+  @ApiPropertyOptional({
+    description: `Filtrar por status ('true' ou 'false'). Default = true`,
+  })
+  @IsBooleanString()
+  status?: string = 'true';
 }
