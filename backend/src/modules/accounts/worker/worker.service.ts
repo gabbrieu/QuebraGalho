@@ -27,6 +27,7 @@ export class WorkerService {
     }
     const hashPassword = await this.authService.encrypt(req.password);
     req.password = hashPassword;
+    req.status = true;
 
     const savedWorker = await this.repository.save(req);
     delete savedWorker.password;
@@ -58,14 +59,21 @@ export class WorkerService {
       .addSelect('worker.document', 'document')
       .addSelect('worker.available', 'available')
       .addSelect('worker.birth_date', 'birth_date')
-      .where('status = true');
+      .take(filters.take)
+      .skip(filters.skip);
+
+    if (filters.status) {
+      query.where('status = :status', { status: filters.status });
+    } else {
+      query.where('status = :status', { status: true });
+    }
 
     if (filters.name) {
       query.andWhere(`"fullName" ILIKE :name`, { name: `%${filters.name}%` });
     }
 
     const [data, count] = await Promise.all([
-      query.clone().limit(filters.take).offset(filters.skip).getRawMany(),
+      query.clone().getRawMany(),
       query.clone().getCount(),
     ]);
 

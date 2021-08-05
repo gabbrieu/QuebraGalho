@@ -27,6 +27,7 @@ export class CustomerService {
     }
     const hashPassword = await this.authService.encrypt(req.password);
     req.password = hashPassword;
+    req.status = true;
 
     const savedCustomer = await this.repository.save(req);
     delete savedCustomer.password;
@@ -56,16 +57,22 @@ export class CustomerService {
       .addSelect('customer.email', 'email')
       .addSelect('customer.status', 'status')
       .addSelect('customer.document', 'document')
-      .addSelect('customer.available', 'available')
       .addSelect('customer.birth_date', 'birth_date')
-      .where('status = true');
+      .take(filters.take)
+      .skip(filters.skip);
+
+    if (filters.status) {
+      query.where('status = :status', { status: filters.status });
+    } else {
+      query.where('status = :status', { status: true });
+    }
 
     if (filters.name) {
       query.andWhere(`"fullName" ILIKE :name`, { name: `%${filters.name}%` });
     }
 
     const [data, count] = await Promise.all([
-      query.clone().limit(filters.take).offset(filters.skip).getRawMany(),
+      query.clone().getRawMany(),
       query.clone().getCount(),
     ]);
 
