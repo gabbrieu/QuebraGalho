@@ -5,4 +5,5 @@ export class CreateWorkerDto extends OmitType(Worker, [
   'created_at',
   'updated_at',
   'id',
+  'services',
 ]) {}

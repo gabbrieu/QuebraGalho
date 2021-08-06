@@ -9,5 +9,6 @@ import { WorkerService } from './worker.service';
   imports: [TypeOrmModule.forFeature([Worker]), AuthModule],
   controllers: [WorkerController],
   providers: [WorkerService],
+  exports: [WorkerService],
 })
 export class WorkerModule {}
