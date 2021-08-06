@@ -22,7 +22,7 @@ import { WorkerService } from './worker.service';
 export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
-  @Post('create')
+  @Post()
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Trabalhador criado com sucesso',
@@ -37,7 +37,7 @@ export class WorkerController {
   })
   @ApiOperation({ description: 'Endpoint de criação do trabalhador' })
   async create(@Body() req: CreateWorkerDto) {
-    return this.workerService.create(req);
+    return await this.workerService.create(req);
   }
 
   @Get()
@@ -53,7 +53,7 @@ export class WorkerController {
   async getAll(
     @Query() filters: GetAllFilters,
   ): Promise<GetAllWorkerResponseDto> {
-    return this.workerService.getAll(filters);
+    return await this.workerService.getAll(filters);
   }
 
   @Get(':id')
@@ -71,7 +71,7 @@ export class WorkerController {
   })
   @ApiOperation({ description: 'Endpoint de retorno de um trabalhador por ID' })
   async getOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Worker> {
-    return this.workerService.getOne(id);
+    return await this.workerService.getOne(id);
   }
 
   /*
@@ -100,6 +100,6 @@ export class WorkerController {
   })
   @ApiOperation({ description: 'Endpoint de exclusão de um trabalhador' })
   async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
-    return this.workerService.delete(id);
+    return await this.workerService.delete(id);
   }
 }

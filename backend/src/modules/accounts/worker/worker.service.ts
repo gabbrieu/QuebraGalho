@@ -85,7 +85,9 @@ export class WorkerService {
 
   async getOne(id: string): Promise<Worker> {
     try {
-      const worker = await this.repository.findOneOrFail(id);
+      const worker = await this.repository.findOneOrFail(id, {
+        relations: ['services'],
+      });
       delete worker.password;
       return worker;
     } catch (error) {
