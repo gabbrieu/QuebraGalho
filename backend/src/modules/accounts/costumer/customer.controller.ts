@@ -22,7 +22,7 @@ import { GetAllCustomerResponseDto } from './dto/response/getAllCustomerResponse
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
-  @Post('create')
+  @Post()
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Cliente criado com sucesso',
@@ -37,7 +37,7 @@ export class CustomerController {
   })
   @ApiOperation({ description: 'Endpoint de criação do cliente' })
   async create(@Body() req: CreateCustomerDto) {
-    return this.customerService.create(req);
+    return await this.customerService.create(req);
   }
 
   @Get()
@@ -53,7 +53,7 @@ export class CustomerController {
   async getAll(
     @Query() filters: GetAllFilters,
   ): Promise<GetAllCustomerResponseDto> {
-    return this.customerService.getAll(filters);
+    return await this.customerService.getAll(filters);
   }
 
   @Get(':id')
@@ -73,7 +73,7 @@ export class CustomerController {
   async getOne(
     @Param('id', new ParseUUIDPipe()) id: string,
   ): Promise<Customer> {
-    return this.customerService.getOne(id);
+    return await this.customerService.getOne(id);
   }
 
   /*
@@ -102,6 +102,6 @@ export class CustomerController {
   })
   @ApiOperation({ description: 'Endpoint de exclusão de um cliente' })
   async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
-    return this.customerService.delete(id);
+    return await this.customerService.delete(id);
   }
 }

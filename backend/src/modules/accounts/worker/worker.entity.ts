@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, IsUrl } from 'class-validator';
-import { Column, Entity } from 'typeorm';
+import { IsOptional, IsString, IsUrl, IsUUID } from 'class-validator';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { Service } from '../../services/services.entity';
 import { BaseAccounts } from '../baseAccounts/baseAccounts.entity';
 
 @Entity()
@@ -26,4 +27,13 @@ export class Worker extends BaseAccounts {
   @IsOptional()
   @IsUrl()
   linkedIn?: string;
+
+  @ApiProperty({
+    type: () => Service,
+    description: 'Serviços',
+    isArray: true,
+  })
+  @IsUUID(undefined, { each: true })
+  @OneToMany(() => Service, (service) => service.worker)
+  services: Service[];
 }
