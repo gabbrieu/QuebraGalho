@@ -48,6 +48,13 @@ button{
 
 }
 
+button:hover{
+
+  opacity: 0.9;
+  transition: 0.2s;
+  
+}
+
 h1{
   font-size: 3.1rem;
   line-height: 3.75rem;

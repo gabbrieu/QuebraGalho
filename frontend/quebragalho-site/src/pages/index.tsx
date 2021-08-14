@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head'
 import { MenuHomePage } from '../components/MenuHomePage'
@@ -20,7 +21,7 @@ export default function Home() {
             <div className={styles.textoContrate}>
               <h1>Contrate Profissionais de qualidade! </h1>
               <span>Encontre os melhores profissionais e que estejam mais próximos de você.</span>
-              <a href=""><button>criar conta</button></a>
+              <a href="/criar-usuario"><button>criar conta</button></a>
             </div>
             <div className={styles.imgProfissional}>
               <img src="img/layout/imgprofissional.svg" />
@@ -35,7 +36,7 @@ export default function Home() {
             <div className={styles.textoTrabalha}>
               <h1>Você trabalha por conta própria?</h1>
               <span>Crie uma conta na nossa plataforma e divulgue seu trabalho para que outras pessoas possam contratá-lo!</span>
-              <a href=""><button>criar conta</button></a>
+              <a href="/criar-usuario"><button>criar conta</button></a>
             </div>
 
           </div>

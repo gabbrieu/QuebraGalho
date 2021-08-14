@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import styles from '../styles/components/MenuHomePage.module.scss'
 export function MenuHomePage() {
@@ -19,8 +20,8 @@ export function MenuHomePage() {
                 <div className={styles.linksMenu}>
                     <ul>
                         <li><a href="#">Como Funciona</a></li>
-                        <li><a href="#">Entrar</a></li>
-                        <a href="#"><button>criar conta</button></a>
+                        <li><a href="/login">Entrar</a></li>
+                        <a href="/criar-usuario"><button>criar conta</button></a>
                     </ul>
                 </div>
             </div>
