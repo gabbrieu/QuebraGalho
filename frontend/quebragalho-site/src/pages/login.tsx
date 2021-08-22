@@ -4,7 +4,7 @@ import { Rodape } from '../components/Rodape'
 
 import styles from '../styles/pages/Login.module.scss'
 
-export default function Home() {
+export default function Login() {
     return (
             <div className={styles.conteudoPageLogin}>
                 <div className={styles.loginSection}>
@@ -18,7 +18,7 @@ export default function Home() {
                             <label> Senha </label>
                             <input placeholder="Digite sua senha" required type="password" />
                             <button type="submit">Login</button>
-                            <span>Não é registrado? <a href="#">Crie uma conta</a></span>
+                            <span>Não é registrado? <a href="/criar-usuario">Crie uma conta</a></span>
                         </form>
                     </div>
                 </div>
