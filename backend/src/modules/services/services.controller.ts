@@ -11,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { GetAllFilters } from '../accounts/worker/dto/request/getAllFilters.dto';
+import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
 import { CreateServiceDto } from './dto/request/createService.dto';
 import { Service } from './services.entity';
 import { ServicesService } from './services.service';

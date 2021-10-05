@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
 import { Customer } from './customer.entity';
 import { CreateCustomerDto } from './dto/request/createCustomer.dto';

@@ -2,7 +2,6 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsDateString,
-  IsEmail,
   IsEnum,
   IsNumberString,
   IsOptional,
@@ -36,7 +35,7 @@ export class BaseAccounts {
     minLength: 11,
     maxLength: 14,
   })
-  @Column()
+  @Column({ unique: true })
   @IsNumberString()
   @MinLength(11)
   @MaxLength(14)
@@ -70,17 +69,6 @@ export class BaseAccounts {
   @IsEnum(Gender)
   @IsOptional()
   gender?: Gender;
-
-  @IsEmail()
-  @Column()
-  @ApiProperty({
-    description: 'Email',
-  })
-  email: string;
-
-  @ApiProperty({ description: 'Senha de uma pessoa' })
-  @Column()
-  password: string;
 
   @ApiProperty({ description: 'Status da pessoa', readOnly: true })
   @Column()

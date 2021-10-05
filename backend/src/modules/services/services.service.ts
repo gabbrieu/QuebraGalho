@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { GetAllFilters } from '../accounts/worker/dto/request/getAllFilters.dto';
-import { WorkerService } from '../accounts/worker/worker.service';
+import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
+import { WorkerService } from '../worker/worker.service';
 import { CreateServiceDto } from './dto/request/createService.dto';
 import { Service } from './services.entity';
 
