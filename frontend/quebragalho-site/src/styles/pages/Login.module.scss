@@ -1,0 +1,63 @@
+.conteudoPageLogin {
+    display: flex;
+
+    .loginSection {
+        display: flex;
+        flex: 2.5;
+        align-items: center;
+        flex-direction: column;
+        background: linear-gradient(135deg, #F3F6FF 0%, #D0DCFF 100%);
+        .loginBox {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 92vh;
+            max-width: 363px;
+
+            h1{
+                color: var(--QG300);
+                padding-bottom: 1rem;
+            }
+            
+            span{
+                color: var(--QG300);
+                line-height: 1.5rem;
+                padding-bottom: 2.5rem;
+            }
+            form{
+                display: flex;
+                flex-direction: column;
+
+                label{
+                    font-weight: 700;
+                    color: var(--QG300);
+                    padding-bottom: 0.5rem;
+                }
+                input{
+                    margin-bottom: 1.25rem;
+                    height: 40px;
+                    border: solid 1px var(--grey100);
+                    border-radius: 5px;
+                    padding-left: 10px;
+                    font-family: 'Roboto', sans-serif;
+                }
+                button{
+                    height: 41px;
+                    cursor: pointer;
+                    margin-bottom: 0.5rem;
+                }
+
+                a{
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+    .imagemSection {
+        display: flex;
+        flex: 1;
+        img{
+            height: 100vh;
+        }
+    }
+}

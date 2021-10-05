@@ -1,0 +1,14 @@
+.rodapeBg{
+    display: flex;
+    justify-content: center;
+    background: var(--QG300);
+    span{
+        color: var(--white);
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        a{
+            font-weight: 700;
+        }
+    }
+}
