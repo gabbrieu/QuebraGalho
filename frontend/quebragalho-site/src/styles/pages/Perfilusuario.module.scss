@@ -1,0 +1,55 @@
+.background {
+  background: var(--grey000);
+  height: 90vh;
+}
+
+.container {
+  max-width: 992px;
+  margin: 0 auto;
+  gap: 2.5rem;
+  display: flex;
+}
+
+.leftSide {
+  display: flex;
+  flex: 1.5;
+
+  .numerosPlataforma {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+
+    h3 {
+      text-align: center;
+      margin-bottom: 1.875rem;
+      margin-top: 0.75rem;
+      font: 700 1.25rem 'Roboto', sans-serif;
+      color: var(--QG300);
+    }
+    .numeroPlataforma:last-child {
+      margin-bottom: 2rem;
+      padding-bottom: 0px;
+    }
+    .numeroPlataforma {
+      padding-left: 12px;
+      padding-bottom: 10px;
+      color: var(--black);
+
+      span:first-child {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.rightSide {
+  display: flex;
+  flex: 2;
+}
+
+.numerosPlataforma {
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 4px 5px 15px -5px rgba(0, 0, 0, 0.25);
+  width: 100%;
+}

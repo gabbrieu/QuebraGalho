@@ -1,0 +1,94 @@
+.menuContainerFluid {
+  width: 100%;
+  background: var(--QGPrimary);
+}
+
+.menuContainer {
+  display: flex;
+  max-width: 992px;
+  margin: 0 auto;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  img {
+    padding-right: 10px;
+  }
+  span {
+    text-transform: uppercase;
+    font: 400 2.25rem 'Lanterosy Sans Serif', sans-serif;
+    color: var(--white);
+  }
+  .logoMenu a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .buscaSection {
+    display: flex;
+    input {
+      padding-right: 10px;
+      padding-left: 10px;
+      height: 41px;
+      border: 1px solid var(--QG300);
+      color: var(--QG400);
+      width: 250px;
+    }
+    img {
+      cursor: pointer;
+      padding-right: 0px;
+    }
+  }
+  .iconsMenuLogged {
+    display: flex;
+
+    .boxIcon a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-right: 30px;
+
+      img {
+        max-width: 30px;
+        height: auto;
+        padding: 0;
+        padding-bottom: 5px;
+      }
+
+      span {
+        text-transform: none;
+        font: 700 0.875rem 'Roboto', sans-serif;
+      }
+    }
+
+    .boxIconEu a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-right: 0;
+
+      .euLink {
+        display: flex;
+        flex-direction: row;
+
+        span {
+          text-transform: none;
+          font: 700 0.875rem 'Roboto', sans-serif;
+          padding-right: 5px;
+        }
+
+        img {
+          margin-top: 2px;
+        }
+      }
+
+      img {
+        max-width: 30px;
+        height: auto;
+        padding: 0;
+        padding-bottom: 5px;
+      }
+    }
+  }
+}
