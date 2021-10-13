@@ -36,6 +36,9 @@ type Professional = {
   aboutMe: string;
 };
 
+const urlCustomer = 'http://localhost:3001/customer';
+const urlWorker = 'http://localhost:3001/worker';
+
 export default function Criarusuario() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [abaSelecionada, setAbaSelecionada] = useState(0);
@@ -45,6 +48,7 @@ export default function Criarusuario() {
     name: '',
     password: '',
     confirmPassword: '',
+    gender: '',
     email: '',
     birthDate: '',
     phone: '',
@@ -65,14 +69,63 @@ export default function Criarusuario() {
     console.log(newdata);
   }
 
-  function onSubmit() {
+  async function onSubmit() {
     event.preventDefault();
     if (abaSelecionada === 0) {
+      if (abaPessoa === 0) {
+        // conta com cpf
+        const request = await axios.post(
+          urlCustomer,
+          {
+            fullName: data.name,
+            password: data.password,
+            gender: data.gender.toLowerCase(),
+            document: data.cpf,
+            cellPhone: data.phone,
+            birth_date: data.birthDate,
+            email: data.email,
+            status: true,
+          },
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST ',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        console.log(request);
+      }
       //conta cliente
     } else {
+      if (abaPessoa === 0) {
+        const request = await axios.post(
+          urlWorker,
+          {
+            fullName: data.name,
+            password: data.password,
+            gender: data.gender,
+            document: data.cpf,
+            cellPhone: data.phone,
+            birth_date: data.birthDate,
+            email: data.email,
+            available: data.aboutMe,
+            //linkedIn: data.linkedin,
+            photo_url: data.imageProfile,
+            status: true,
+          },
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST ',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        console.log(request.status);
+      }
     }
-
-    const sendUser = axios.post('');
   }
 
   function selecionarAba(id: number) {
@@ -205,16 +258,17 @@ export default function Criarusuario() {
                 </div>
                 <div className={styles.inputLabel}>
                   <label> Sexo*: </label>
-                  <select className={styles.selectDefault} name='sexo'>
-                    <option onChange={(e) => handle(e)} value='masculino'>
-                      Masculino
-                    </option>
-                    <option onChange={(e) => handle(e)} value='feminino'>
-                      Feminino
-                    </option>
-                    <option onChange={(e) => handle(e)} value='não informado'>
-                      Não informado
-                    </option>
+                  <select
+                    onChange={(e) => handle(e)}
+                    value={data.gender}
+                    className={styles.selectDefault}
+                    name='gender'
+                    id='gender'
+                  >
+                    <option value='Informar sexo'> Informe seu sexo </option>
+                    <option value='masculino'>Masculino</option>
+                    <option value='feminino'>Feminino</option>
+                    <option value='não informado'>Não informar</option>
                   </select>
                 </div>
                 <div className={styles.inputLabel}>
@@ -266,7 +320,7 @@ export default function Criarusuario() {
                     </>
                   )}
                 </div>
-                <div className={styles.inputLabel}>
+                {/* <div className={styles.inputLabel}>
                   <label> CEP*: </label>
                   <input placeholder='Digite seu cpf' required type='text' />
                 </div>
@@ -280,7 +334,7 @@ export default function Criarusuario() {
                     required
                     type='text'
                   />
-                </div>
+                </div> */}
                 <div className={styles.inputLabel}>
                   <label>Foto de Perfil*: </label>
                   <input
@@ -340,7 +394,7 @@ export default function Criarusuario() {
               </div>
               <div className={styles.camposBotao}>
                 <span>*Campos obrigatórios</span>
-                <button>Cadastrar</button>
+                <button type='submit'>Cadastrar</button>
               </div>
             </form>
           </div>
