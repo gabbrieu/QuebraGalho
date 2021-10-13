@@ -1,203 +1,210 @@
 .bgCriarconta {
-    background: linear-gradient(135deg, #F3F6FF 0%, #D0DCFF 100%);
-    .conteudoCriarconta {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        .boxTitulo {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            max-width: 360px;
-            padding-top: 3.25rem;
-            padding-bottom: 3.25rem;
-            h1 {
-                color: var(--QG300);
-                padding-bottom: 1rem;
-            }
-            span {
-                color: var(--QG400);
-                line-height: 1.5rem;
-            }
-        }
+  background: linear-gradient(135deg, #f3f6ff 0%, #d0dcff 100%);
+  .conteudoCriarconta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .boxTitulo {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      max-width: 360px;
+      padding-top: 3.25rem;
+      padding-bottom: 3.25rem;
+      h1 {
+        color: var(--QG300);
+        padding-bottom: 1rem;
+      }
+      span {
+        color: var(--QG400);
+        line-height: 1.5rem;
+      }
     }
+  }
 }
 
 .boxCriarconta {
-    border-radius: 10px;
-    max-width: 950px;
-    box-shadow: 4px 5px 15px -5px rgba(0, 0, 0, 0.25);
-    margin-bottom: 3.25rem;
-    background: #F3F6FF;
-    .cabecalhoAbas {
-        display: flex;
-        flex-direction: row;
-        height: 72px;
-        .abaActive {
-            background: #F3F6FF!important;
-            border-top: 5px solid var(--QGPrimary);
-            border-bottom: none!important;
-            span {
-                color: var(--QGPrimary)!important;
-            }
-        }
-        .abaItem {
-            width: 475px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--grey000);
-            border-bottom: 2px solid var(--QGPrimary);
-            border-top-right-radius: 10px;
-            border-top-left-radius: 10px;
-            cursor: pointer;
-            span {
-                font: 700 1.5rem 'Roboto', sans-serif;
-                color: var(--grey200);
-            }
-        }
-        .abaItem:first-child {
-            border-right: 2px solid var(--QGPrimary)!important;
-            border-top-right-radius: 0px!important;
-        }
-        .abaItem:last-child {
-            border-top-left-radius: 0px!important;
-        }
-    }
-    .textoFormulario {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-        padding-right: 2rem;
-        padding-left: 2rem;
-        span {
-            color: var(--QG400);
-            line-height: 1.5rem;
-        }
-    }
-    .camposFormulario {
-        padding-right: 2rem;
-        padding-left: 2rem;
-        form {
-            .campos {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                flex-wrap: wrap;
-
-                .inputLabel {
-                    display: flex;
-                    flex-direction: column;
-                    label {
-                        font-weight: 700;
-                        color: var(--QG300);
-                        padding-bottom: 0.5rem;
-                    }
-                    input {
-                        margin-bottom: 1.25rem;
-                        height: 40px;
-                        border: solid 1px var(--grey100);
-                        border-radius: 5px;
-                        padding-left: 10px;
-                        font-family: 'Roboto', sans-serif;
-                        width: 430px;
-                    }
-                    textarea{
-                        width: 887px;
-                        height: 160px;
-                        margin-bottom: 1.2rem;
-                        padding-top: 0.5rem;
-                        padding-left: 0.5rem;
-                        font-family: 'Roboto', sans-serif;
-                        border-radius: 10px;
-                        border: 1px solid var(--grey100);
-                        resize: none;
-                    }
-                    .inputFile {
-                        input {
-                            width: 300px;
-                            border-top-right-radius: 0px!important;
-                            border-bottom-right-radius: 0px!important;
-                        }
-                    }
-                }
-                button {
-                    height: 41px;
-                    cursor: pointer;
-                    margin-bottom: 0.5rem;
-                    cursor: pointer;
-                }
-                a {
-                    font-weight: 700;
-                }
-                input[type="file"] {
-                    display: none;
-                }
-                .customFileUpload {
-                    border: 1px solid #ccc;
-                    display: inline-block;
-                    cursor: pointer;
-                    background: var(--QGPrimary);
-                    color: var(--white)!important;
-                    height: 40px;
-                    padding-top: 9px;
-                    padding-bottom: 11px;
-                    width: 130px;
-                    text-align: center;
-                    font-weight: 400!important;
-                    border-top-right-radius: 10px;
-                    border-bottom-right-radius: 10px;
-                }
-            }
-            .camposBotao{
-                display: flex;
-                flex-direction: column;
-                margin-top: -1rem;
-                
-                span{
-                    font: 700 0.75rem 'Roboto', sans-serif;
-                    color: var(--QG300);
-                }
-                button{
-                    margin-top: 1rem;
-                    max-width: 135px;
-                    height: 40px;
-                    margin-bottom: 3rem;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-}
-
-.AbaPessoaFJ{
-    padding-bottom: 1.5rem;
+  border-radius: 10px;
+  max-width: 950px;
+  box-shadow: 4px 5px 15px -5px rgba(0, 0, 0, 0.25);
+  margin-bottom: 3.25rem;
+  background: #f3f6ff;
+  .cabecalhoAbas {
     display: flex;
     flex-direction: row;
+    height: 72px;
+    .abaActive {
+      background: #f3f6ff !important;
+      border-top: 5px solid var(--QGPrimary);
+      border-bottom: none !important;
+      span {
+        color: var(--QGPrimary) !important;
+      }
+    }
+    .abaItem {
+      width: 475px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grey000);
+      border-bottom: 2px solid var(--QGPrimary);
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      cursor: pointer;
+      span {
+        font: 700 1.5rem 'Roboto', sans-serif;
+        color: var(--grey200);
+      }
+    }
+    .abaItem:first-child {
+      border-right: 2px solid var(--QGPrimary) !important;
+      border-top-right-radius: 0px !important;
+    }
+    .abaItem:last-child {
+      border-top-left-radius: 0px !important;
+    }
+  }
+  .textoFormulario {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-right: 2rem;
     padding-left: 2rem;
-
-    .abaPessoa{
+    span {
+      color: var(--QG400);
+      line-height: 1.5rem;
+    }
+  }
+  .camposFormulario {
+    padding-right: 2rem;
+    padding-left: 2rem;
+    form {
+      .campos {
         display: flex;
-        align-items: center;
-        margin-right: 10px;
-        border-radius: 20px;
-        border: 2px solid var(--QG300);
-        padding-left: 15px;
-        padding-right: 15px;
-        height: 40px;
-        cursor: pointer;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
 
-        span{
-             font: 700 1rem 'Roboto', sans-serif;
-             color: var(--QG300);
+        .inputLabel {
+          display: flex;
+          flex-direction: column;
+          label {
+            font-weight: 700;
+            color: var(--QG300);
+            padding-bottom: 0.5rem;
+          }
+          input {
+            margin-bottom: 1.25rem;
+            height: 40px;
+            border: solid 1px var(--grey100);
+            border-radius: 5px;
+            padding-left: 10px;
+            font-family: 'Roboto', sans-serif;
+            width: 430px;
+          }
+          textarea {
+            width: 887px;
+            height: 160px;
+            margin-bottom: 1.2rem;
+            padding-top: 0.5rem;
+            padding-left: 0.5rem;
+            font-family: 'Roboto', sans-serif;
+            border-radius: 10px;
+            border: 1px solid var(--grey100);
+            resize: none;
+          }
+          .inputFile {
+            input {
+              width: 300px;
+              border-top-right-radius: 0px !important;
+              border-bottom-right-radius: 0px !important;
+            }
+          }
+
+          .selectDefault {
+            width: 430px;
+            height: 40px;
+            border: solid 1px var(--grey100);
+            border-radius: 5px;
+            padding-left: 0.5rem;
+          }
         }
-    }
-
-    .abaPActive{
-        background: var(--QG300);
-        span{
-
-            color: var(--white);
+        button {
+          height: 41px;
+          cursor: pointer;
+          margin-bottom: 0.5rem;
+          cursor: pointer;
         }
+        a {
+          font-weight: 700;
+        }
+        input[type='file'] {
+          display: none;
+        }
+        .customFileUpload {
+          border: 1px solid #ccc;
+          display: inline-block;
+          cursor: pointer;
+          background: var(--QGPrimary);
+          color: var(--white) !important;
+          height: 40px;
+          padding-top: 9px;
+          padding-bottom: 11px;
+          width: 130px;
+          text-align: center;
+          font-weight: 400 !important;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+      }
+      .camposBotao {
+        display: flex;
+        flex-direction: column;
+        margin-top: -1rem;
+
+        span {
+          font: 700 0.75rem 'Roboto', sans-serif;
+          color: var(--QG300);
+        }
+        button {
+          margin-top: 1rem;
+          max-width: 135px;
+          height: 40px;
+          margin-bottom: 3rem;
+          cursor: pointer;
+        }
+      }
     }
+  }
+}
+
+.AbaPessoaFJ {
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  padding-left: 2rem;
+
+  .abaPessoa {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 20px;
+    border: 2px solid var(--QG300);
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 40px;
+    cursor: pointer;
+
+    span {
+      font: 700 1rem 'Roboto', sans-serif;
+      color: var(--QG300);
+    }
+  }
+
+  .abaPActive {
+    background: var(--QG300);
+    span {
+      color: var(--white);
+    }
+  }
 }
