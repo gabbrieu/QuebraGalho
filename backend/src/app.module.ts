@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CustomerModule } from './modules/accounts/costumer/customer.module';
-import { WorkerModule } from './modules/accounts/worker/worker.module';
+import { AppController } from './app.controller';
+import { AccountsModule } from './modules/accounts/accounts.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { CustomerModule } from './modules/costumer/customer.module';
 import { ServicesModule } from './modules/services/services.module';
+import { WorkerModule } from './modules/worker/worker.module';
 import * as ormconfig from './ormconfig';
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import * as ormconfig from './ormconfig';
     CustomerModule,
     AuthModule,
     ServicesModule,
+    AccountsModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

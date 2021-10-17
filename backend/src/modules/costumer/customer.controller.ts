@@ -11,11 +11,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateAccountsDto } from '../accounts/dto/request/createAccounts.dto';
 import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
 import { Customer } from './customer.entity';
 import { CustomerService } from './customer.service';
-import { CreateCustomerDto } from './dto/request/createCustomer.dto';
-import { GetAllCustomerResponseDto } from './dto/response/getAllCustomerResponse.dto';
 
 @Controller('customer')
 @ApiTags('Customer')
@@ -35,8 +34,8 @@ export class CustomerController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Aconteceu algum erro',
   })
-  @ApiOperation({ description: 'Endpoint de criação do cliente' })
-  async create(@Body() req: CreateCustomerDto) {
+  @ApiOperation({ summary: 'Endpoint de criação do cliente' })
+  async create(@Body() req: CreateAccountsDto) {
     return await this.customerService.create(req);
   }
 
@@ -49,10 +48,8 @@ export class CustomerController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Aconteceu algum erro',
   })
-  @ApiOperation({ description: 'Endpoint de retorno de clientes' })
-  async getAll(
-    @Query() filters: GetAllFilters,
-  ): Promise<GetAllCustomerResponseDto> {
+  @ApiOperation({ summary: 'Endpoint de retorno de clientes' })
+  async getAll(@Query() filters: GetAllFilters) {
     return await this.customerService.getAll(filters);
   }
 
@@ -69,7 +66,7 @@ export class CustomerController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Aconteceu algum erro',
   })
-  @ApiOperation({ description: 'Endpoint de retorno de um cliente por ID' })
+  @ApiOperation({ summary: 'Endpoint de retorno de um cliente por ID' })
   async getOne(
     @Param('id', new ParseUUIDPipe()) id: string,
   ): Promise<Customer> {
@@ -100,7 +97,7 @@ export class CustomerController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Aconteceu algum erro',
   })
-  @ApiOperation({ description: 'Endpoint de exclusão de um cliente' })
+  @ApiOperation({ summary: 'Endpoint de exclusão de um cliente' })
   async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
     return await this.customerService.delete(id);
   }

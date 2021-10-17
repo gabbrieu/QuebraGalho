@@ -35,7 +35,7 @@ export class WorkerController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Aconteceu algum erro',
   })
-  @ApiOperation({ description: 'Endpoint de criação do trabalhador' })
+  @ApiOperation({ summary: 'Endpoint de criação do trabalhador' })
   async create(@Body() req: CreateWorkerDto) {
     return await this.workerService.create(req);
   }
@@ -49,7 +49,7 @@ export class WorkerController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Aconteceu algum erro',
   })
-  @ApiOperation({ description: 'Endpoint de retorno de trabalhadores' })
+  @ApiOperation({ summary: 'Endpoint de retorno de trabalhadores' })
   async getAll(
     @Query() filters: GetAllFilters,
   ): Promise<GetAllWorkerResponseDto> {
@@ -69,7 +69,7 @@ export class WorkerController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Aconteceu algum erro',
   })
-  @ApiOperation({ description: 'Endpoint de retorno de um trabalhador por ID' })
+  @ApiOperation({ summary: 'Endpoint de retorno de um trabalhador por ID' })
   async getOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Worker> {
     return await this.workerService.getOne(id);
   }
@@ -98,7 +98,7 @@ export class WorkerController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Aconteceu algum erro',
   })
-  @ApiOperation({ description: 'Endpoint de exclusão de um trabalhador' })
+  @ApiOperation({ summary: 'Endpoint de exclusão de um trabalhador' })
   async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
     return await this.workerService.delete(id);
   }

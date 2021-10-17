@@ -1,19 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Param,
-  ParseUUIDPipe,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { GetAllFilters } from '../accounts/worker/dto/request/getAllFilters.dto';
+import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
 import { CreateServiceDto } from './dto/request/createService.dto';
-import { Service } from './services.entity';
 import { ServicesService } from './services.service';
 
 @Controller('services')
@@ -45,6 +33,7 @@ export class ServicesController {
     return await this.servicesService.getAll(filters);
   }
 
+  /**
   @Get(':id')
   @ApiResponse({
     status: HttpStatus.OK,
@@ -59,7 +48,8 @@ export class ServicesController {
     description: 'Aconteceu algum erro',
   })
   @ApiOperation({ description: 'Retorna um serviço por ID' })
-  async getOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Service> {
+  async getOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Service> 
+  {
     return await this.servicesService.getOne(id);
   }
 
@@ -81,4 +71,5 @@ export class ServicesController {
   async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
     return await this.servicesService.delete(id);
   }
+  **/
 }

@@ -2,7 +2,6 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsDateString,
-  IsEmail,
   IsEnum,
   IsNumberString,
   IsOptional,
@@ -36,7 +35,7 @@ export class BaseAccounts {
     minLength: 11,
     maxLength: 14,
   })
-  @Column()
+  @Column({ unique: true })
   @IsNumberString()
   @MinLength(11)
   @MaxLength(14)
@@ -46,7 +45,7 @@ export class BaseAccounts {
   @Column({ nullable: true })
   @IsDateString()
   @IsOptional()
-  birth_date?: string;
+  birthDate?: string;
 
   @ApiProperty({ description: 'Celular de uma pessoa' })
   @Column()
@@ -71,33 +70,32 @@ export class BaseAccounts {
   @IsOptional()
   gender?: Gender;
 
-  @IsEmail()
-  @Column()
-  @ApiProperty({
-    description: 'Email',
-  })
-  email: string;
-
-  @ApiProperty({ description: 'Senha de uma pessoa' })
-  @Column()
-  password: string;
-
-  @ApiProperty({ description: 'Status da pessoa', readOnly: true })
+  @ApiProperty({ description: 'Status da pessoa' })
   @Column()
   @IsBoolean()
   status: boolean;
+
+  @Column()
+  @ApiProperty({ description: 'CEP do endereço da pessoa' })
+  @IsString()
+  cep: string;
+
+  @Column()
+  @ApiProperty({ description: 'Endereço da pessoa' })
+  @IsString()
+  address: string;
 
   @CreateDateColumn({
     type: 'timestamp',
     name: 'create_date',
     default: () => 'LOCALTIMESTAMP',
   })
-  created_at: string;
+  createdAt: string;
 
   @UpdateDateColumn({
     type: 'timestamp',
     name: 'update_date',
     default: () => 'LOCALTIMESTAMP',
   })
-  updated_at: string;
+  updatedAt: string;
 }

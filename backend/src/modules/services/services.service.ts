@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { GetAllFilters } from '../accounts/worker/dto/request/getAllFilters.dto';
-import { WorkerService } from '../accounts/worker/worker.service';
+import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
+import { WorkerService } from '../worker/worker.service';
 import { CreateServiceDto } from './dto/request/createService.dto';
 import { Service } from './services.entity';
 
@@ -68,10 +68,7 @@ export class ServicesService {
 
   async getOne(id: string): Promise<Service> {
     try {
-      const service = await this.repository.findOneOrFail(id, {
-        relations: ['worker'],
-      });
-      delete service.worker.password;
+      const service = await this.repository.findOneOrFail(id);
 
       return service;
     } catch (error) {
@@ -79,11 +76,11 @@ export class ServicesService {
     }
   }
 
-  async delete(id: string): Promise<void> {
+  /**async delete(id: string): Promise<void> {
     const service = await this.getOne(id);
     if (service.status) service.status = false;
     else throw new BadRequestException('Serviço inativo');
 
     await this.repository.save(service);
-  }
+  }**/
 }

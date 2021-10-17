@@ -14,7 +14,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Worker } from '../accounts/worker/worker.entity';
+import { Worker } from '../worker/worker.entity';
 
 @Entity()
 export class Service {
