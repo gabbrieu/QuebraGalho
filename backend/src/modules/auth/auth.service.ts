@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   forwardRef,
   Inject,
   Injectable,
@@ -21,19 +22,27 @@ export class AuthService {
   async login(userLogin: LoginRequestDto): Promise<LoginResponseDto> {
     const { email, password } = userLogin;
     const user = await this.accountsService.getByEmail(email);
-    if (!user) throw new UnauthorizedException('Wrong email!');
+    if (!user)
+      throw new UnauthorizedException('Não há registros desse email fornecido');
+
+    if (!user.status) throw new BadRequestException('Usuário desativado');
 
     const decryptedPassword = await this.decrypt(user.password, password);
     delete user.password;
 
     if (decryptedPassword) {
-      const payload = { email: user.email, id: user.id };
+      const payload = {
+        email: user.email,
+        id: user.id,
+        name: user.fullName,
+        type: user.type,
+      };
       return {
         accessToken: this.jwtService.sign(payload),
         user,
       };
     }
-    throw new UnauthorizedException('Wrong password');
+    throw new UnauthorizedException('A senha fornecida não está correta');
   }
 
   async encrypt(valor: string): Promise<string> {

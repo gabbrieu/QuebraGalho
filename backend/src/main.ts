@@ -17,8 +17,11 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('API QuebraGalho')
     .setDescription('API das rotas do QuebraGalho')
+    .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' })
     .setVersion('1.0')
     .build();
+
+  app.enableCors();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

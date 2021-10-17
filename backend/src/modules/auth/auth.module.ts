@@ -4,6 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import * as dotenv from 'dotenv';
 import { AccountsModule } from '../accounts/accounts.module';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './jwt.strategy';
 dotenv.config();
 @Module({
   imports: [
@@ -14,7 +15,7 @@ dotenv.config();
       signOptions: { expiresIn: '5h' },
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
