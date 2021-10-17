@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/utils/MaskedInput.tsx"  ],
   "exclude": [
     "node_modules"
   ]
