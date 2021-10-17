@@ -6,8 +6,8 @@ import { Worker } from '../worker/worker.entity';
 import { BaseAccounts } from './baseAccounts.entity';
 
 export enum TypeAccounts {
-  worker = 'WORKER',
-  customer = 'CUSTOMER',
+  WORKER = 'WORKER',
+  CUSTOMER = 'CUSTOMER',
 }
 
 @Entity()

@@ -9,10 +9,12 @@ export class CreateAccountsDto extends PickType(Accounts, [
   'password',
   'type',
   'gender',
-  'birth_date',
+  'birthDate',
   'cellPhone',
+  'cep',
+  'address',
 ]) {
-  @ApiProperty({ description: 'Status da pessoa', readOnly: true })
+  @ApiProperty({ description: 'Status da pessoa' })
   @IsBoolean()
   status: boolean = true;
 }

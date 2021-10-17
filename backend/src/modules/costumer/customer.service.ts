@@ -22,7 +22,7 @@ export class CustomerService {
 
   async create(customerToCreate: CreateAccountsDto) {
     try {
-      customerToCreate.type = TypeAccounts.customer;
+      customerToCreate.type = TypeAccounts.CUSTOMER;
       const accountsToCreate = { ...customerToCreate };
       const account = await this.accountsService.create(accountsToCreate);
 
@@ -51,8 +51,10 @@ export class CustomerService {
       .addSelect('customer."cellPhone"', 'cellPhone')
       .addSelect('accounts.email', 'email')
       .addSelect('customer.status', 'status')
+      .addSelect('customer.cep', 'cep')
+      .addSelect('customer.address', 'address')
       .addSelect('customer.document', 'document')
-      .addSelect('customer.birth_date', 'birth_date')
+      .addSelect('customer."birthDate"', 'birthDate')
       .innerJoin('customer.accounts', 'accounts')
       .take(filters.take)
       .skip(filters.skip);

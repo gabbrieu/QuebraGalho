@@ -8,18 +8,18 @@ import { Service } from '../services/services.entity';
 @Entity()
 export class Worker extends BaseAccounts {
   @ApiPropertyOptional({
-    description: 'Quais horários um trabalhador está disponível',
+    description: 'Descrição geral do trabalhador, falar um pouco sobre ele',
   })
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'text' })
   @IsString()
-  available?: string;
+  description?: string;
 
   @ApiProperty({
     description: 'URL da foto do trabalhador',
   })
   @Column()
   @IsUrl()
-  photo_url: string;
+  photoUrl: string;
 
   @ApiPropertyOptional({
     description: 'Link do LinkedIn do trabalhador',
@@ -28,6 +28,13 @@ export class Worker extends BaseAccounts {
   @IsOptional()
   @IsUrl()
   linkedIn?: string;
+
+  @ApiProperty({
+    description: 'Profissão principal',
+  })
+  @Column()
+  @IsString()
+  mainProfession: string;
 
   @ApiProperty({
     type: () => Service,

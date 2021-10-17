@@ -13,6 +13,11 @@ export class GetAllData extends PickType(Worker, [
   'cellPhone',
   'status',
   'document',
-  'available',
-  'birth_date',
+  'description',
+  'birthDate',
+  'photoUrl',
+  'linkedIn',
+  'mainProfession',
+  'cep',
+  'address',
 ]) {}

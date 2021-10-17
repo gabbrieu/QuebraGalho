@@ -45,7 +45,7 @@ export class BaseAccounts {
   @Column({ nullable: true })
   @IsDateString()
   @IsOptional()
-  birth_date?: string;
+  birthDate?: string;
 
   @ApiProperty({ description: 'Celular de uma pessoa' })
   @Column()
@@ -70,22 +70,32 @@ export class BaseAccounts {
   @IsOptional()
   gender?: Gender;
 
-  @ApiProperty({ description: 'Status da pessoa', readOnly: true })
+  @ApiProperty({ description: 'Status da pessoa' })
   @Column()
   @IsBoolean()
   status: boolean;
+
+  @Column()
+  @ApiProperty({ description: 'CEP do endereço da pessoa' })
+  @IsString()
+  cep: string;
+
+  @Column()
+  @ApiProperty({ description: 'Endereço da pessoa' })
+  @IsString()
+  address: string;
 
   @CreateDateColumn({
     type: 'timestamp',
     name: 'create_date',
     default: () => 'LOCALTIMESTAMP',
   })
-  created_at: string;
+  createdAt: string;
 
   @UpdateDateColumn({
     type: 'timestamp',
     name: 'update_date',
     default: () => 'LOCALTIMESTAMP',
   })
-  updated_at: string;
+  updatedAt: string;
 }

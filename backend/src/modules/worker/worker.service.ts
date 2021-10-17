@@ -1,11 +1,14 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthService } from '../auth/auth.service';
+import { TypeAccounts } from '../accounts/accounts.entity';
+import { AccountsService } from '../accounts/accounts.service';
+import { CreateWorkerDto } from './dto/request/createWorker.dto';
 import { GetAllFilters } from './dto/request/getAllFilters.dto';
 import { GetAllWorkerResponseDto } from './dto/response/getAllResponse.dto';
 import { Worker } from './worker.entity';
@@ -15,20 +18,26 @@ export class WorkerService {
   constructor(
     @InjectRepository(Worker)
     private readonly repository: Repository<Worker>,
-    private readonly authService: AuthService,
+    private readonly accountsService: AccountsService,
   ) {}
 
-  //async create(req: CreateWorkerDto): Promise<CreateWorkerResponseDto> {}
-
-  private async checkCpfAndEmail(
-    document: string,
-    email: string,
-  ): Promise<boolean> {
+  async create(workerToCreate: CreateWorkerDto): Promise<Worker> {
     try {
-      await this.repository.findOneOrFail({ document, status: true });
-      return true;
+      workerToCreate.type = TypeAccounts.WORKER;
+      const accountsToCreate = { ...workerToCreate };
+      const account = await this.accountsService.create(accountsToCreate);
+
+      const worker = this.repository.create({
+        accounts: { id: account.id },
+        ...workerToCreate,
+      });
+      return await this.repository.save(worker);
     } catch (error) {
-      return false;
+      if (error.code === '23505') {
+        throw new ConflictException(
+          'Erro! Cliente já existe no banco de dados',
+        );
+      }
     }
   }
 
@@ -36,25 +45,33 @@ export class WorkerService {
     let query = this.repository
       .createQueryBuilder('worker')
       .select('worker.id', 'id')
-      .addSelect('worker.fullName', 'name')
+      .addSelect('worker."fullName"', 'name')
       .addSelect('worker.gender', 'gender')
       .addSelect('worker.cellPhone', 'cellPhone')
-      .addSelect('worker.email', 'email')
       .addSelect('worker.status', 'status')
       .addSelect('worker.document', 'document')
-      .addSelect('worker.available', 'available')
-      .addSelect('worker.birth_date', 'birth_date')
+      .addSelect('worker.description', 'description')
+      .addSelect('worker."birthDate"', 'birthDate')
+      .addSelect('worker.cep', 'cep')
+      .addSelect('worker.address', 'address')
+      .addSelect('worker."linkedIn"', 'linkedIn')
+      .addSelect('worker."photoUrl"', 'photoUrl')
+      .addSelect('worker."mainProfession"', 'mainProfession')
+      .addSelect('accounts.email', 'email')
+      .innerJoin('worker.accounts', 'accounts')
       .take(filters.take)
       .skip(filters.skip);
 
     if (filters.status) {
-      query.where('status = :status', { status: filters.status });
+      query.where('worker.status = :status', { status: filters.status });
     } else {
-      query.where('status = :status', { status: true });
+      query.where('worker.status = :status', { status: true });
     }
 
     if (filters.name) {
-      query.andWhere(`"fullName" ILIKE :name`, { name: `%${filters.name}%` });
+      query.andWhere(`worker."fullName" ILIKE :name`, {
+        name: `%${filters.name}%`,
+      });
     }
 
     const [data, count] = await Promise.all([
