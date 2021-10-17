@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsUrl, IsUUID } from 'class-validator';
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { Accounts } from '../accounts/accounts.entity';
 import { BaseAccounts } from '../accounts/baseAccounts.entity';
 import { Service } from '../services/services.entity';
@@ -39,5 +39,6 @@ export class Worker extends BaseAccounts {
   services: Service[];
 
   @OneToOne(() => Accounts, (accounts) => accounts.worker)
+  @JoinColumn()
   accounts: Accounts;
 }

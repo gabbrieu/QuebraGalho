@@ -9,7 +9,6 @@ export class CreateWorkerResponseDto extends PickType(Worker, [
   'birth_date',
   'gender',
   'available',
-  'email',
   'cellPhone',
   'linkedIn',
   'photo_url',

@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
@@ -66,7 +62,7 @@ export class ServicesService {
     };
   }
 
-  async getOne(id: string): Promise<Service> {
+  /**async getOne(id: string): Promise<Service> {
     try {
       const service = await this.repository.findOneOrFail(id, {
         relations: ['worker'],
@@ -85,5 +81,5 @@ export class ServicesService {
     else throw new BadRequestException('Serviço inativo');
 
     await this.repository.save(service);
-  }
+  }**/
 }

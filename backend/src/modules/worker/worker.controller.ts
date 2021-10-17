@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
@@ -7,11 +6,9 @@ import {
   HttpStatus,
   Param,
   ParseUUIDPipe,
-  Post,
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateWorkerDto } from './dto/request/createWorker.dto';
 import { GetAllFilters } from './dto/request/getAllFilters.dto';
 import { GetAllWorkerResponseDto } from './dto/response/getAllResponse.dto';
 import { Worker } from './worker.entity';
@@ -22,7 +19,7 @@ import { WorkerService } from './worker.service';
 export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
-  @Post()
+  /**@Post()
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Trabalhador criado com sucesso',
@@ -38,7 +35,7 @@ export class WorkerController {
   @ApiOperation({ description: 'Endpoint de criação do trabalhador' })
   async create(@Body() req: CreateWorkerDto) {
     return await this.workerService.create(req);
-  }
+  }**/
 
   @Get()
   @ApiResponse({

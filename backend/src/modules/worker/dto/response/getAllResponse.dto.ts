@@ -11,7 +11,6 @@ export class GetAllData extends PickType(Worker, [
   'fullName',
   'gender',
   'cellPhone',
-  'email',
   'status',
   'document',
   'available',
