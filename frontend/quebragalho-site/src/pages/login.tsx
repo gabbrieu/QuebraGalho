@@ -31,6 +31,7 @@ export default function Login() {
         </div>
       </div>
       <div className={styles.imagemSection}>
+        {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <img src='img/layout/imglogin.svg' />
       </div>
     </div>

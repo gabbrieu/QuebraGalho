@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { MenuLoginCreate } from '../components/MenuLoginCreate';
 import styles from '../styles/pages/Criarusuario.module.scss';
 import MaskedInput from '../utils/MaskedInput';
+import Router from 'next/router';
 
 const urlCustomer = 'http://localhost:3001/customer';
 const urlWorker = 'http://localhost:3001/worker';
@@ -38,61 +39,85 @@ export default function Criarusuario() {
 
   async function onSubmit() {
     event.preventDefault();
-    if (abaSelecionada === 0) {
-      const request = await axios.post(
-        urlCustomer,
-        {
-          fullName: data.name,
-          password: data.password,
-          gender: data.gender.toLowerCase(),
-          document: abaPessoa === 0 ? cpf : cnpj,
-          cellPhone: phone,
-          birthDate: data.birthDate,
-          email: data.email,
-          cep: cep,
-          address: data.address,
-          status: true,
-        },
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST ',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      console.log(request);
-
-      //conta cliente
+    if (data.password !== data.confirmPassword) {
+      alert('Campo de senha diferente do campo de confirmar senha!');
     } else {
-      const request = await axios.post(
-        urlWorker,
-        {
-          fullName: data.name,
-          password: data.password,
-          gender: data.gender,
-          mainProfession: data.mainProfession,
-          document: abaPessoa === 0 ? cpf : cnpj,
-          cellPhone: phone,
-          birthDate: data.birthDate,
-          email: data.email,
-          description: data.aboutMe,
-          linkedIn: data.linkedin,
-          photoUrl: data.imageProfile,
-          cep: cep,
-          address: data.address,
-          status: true,
-        },
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST ',
-            'Content-Type': 'application/json',
-          },
+      if (abaSelecionada === 0) {
+        try {
+          await axios.post(
+            urlCustomer,
+            {
+              fullName: data.name,
+              password: data.password,
+              gender: data.gender.toLowerCase(),
+              document: abaPessoa === 0 ? cpf : cnpj,
+              cellPhone: phone,
+              birthDate: data.birthDate,
+              email: data.email,
+              cep: cep,
+              address: data.address,
+              status: true,
+            },
+            {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST ',
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          alert('Usuário criado com sucesso');
+          Router.push('/');
+        } catch (e) {
+          if (e.response.status === 409) {
+            alert(
+              'CPF ou e-mail já cadastrados. Não foi possivel cadastrar sua conta, tente novamente'
+            );
+          } else {
+            alert('Algo deu errado, o usuário não foi criado');
+          }
         }
-      );
-      console.log(request.status);
+      } else {
+        try {
+          await axios.post(
+            urlWorker,
+            {
+              fullName: data.name,
+              password: data.password,
+              gender: data.gender,
+              mainProfession: data.mainProfession,
+              document: abaPessoa === 0 ? cpf : cnpj,
+              cellPhone: phone,
+              birthDate: data.birthDate,
+              email: data.email,
+              description: data.aboutMe,
+              linkedIn: data.linkedin,
+              photoUrl: data.imageProfile,
+              cep: cep,
+              address: data.address,
+              status: true,
+            },
+            {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST ',
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          alert('Usuário criado com sucesso');
+          Router.push('/');
+        } catch (e) {
+          if (e.response.status === 409) {
+            alert(
+              'CPF ou e-mail já cadastrados. Não foi possivel cadastrar sua conta, tente novamente'
+            );
+          } else {
+            alert('Algo deu errado, o usuário não foi criado');
+          }
+        }
+      }
     }
   }
 
@@ -256,6 +281,7 @@ export default function Criarusuario() {
                     mask='(99)99999-9999'
                     value={phone}
                     placeholder='Digite seu telefone de contato'
+                    minLength='14'
                     onChange={(event) => setPhone(event.target.value)}
                   />
                 </div>
@@ -268,6 +294,7 @@ export default function Criarusuario() {
                         mask='999.999.999-99'
                         value={cpf}
                         placeholder='Digite seu CPF'
+                        minLength='14'
                         onChange={(event) => setCPF(event.target.value)}
                       />
                     </>
@@ -278,6 +305,7 @@ export default function Criarusuario() {
                         mask='99.999.999/9999-99'
                         value={cnpj}
                         placeholder='Digite seu CNPJ'
+                        minLength='19'
                         onChange={(event) => setCNPJ(event.target.value)}
                       />
                     </>
@@ -289,6 +317,7 @@ export default function Criarusuario() {
                     mask='99.999-999'
                     value={cep}
                     placeholder='Digite seu CEP'
+                    minLength='10'
                     onChange={(event) => setCEP(event.target.value)}
                   />
                 </div>
@@ -337,7 +366,6 @@ export default function Criarusuario() {
                         id='linkedin'
                         value={data.linkedin}
                         placeholder='Digite seu Linkedin'
-                        required
                         type='text'
                       />
                     </div>
