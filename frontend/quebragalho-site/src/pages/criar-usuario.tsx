@@ -2,47 +2,19 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { MenuLoginCreate } from '../components/MenuLoginCreate';
 import styles from '../styles/pages/Criarusuario.module.scss';
-
-type Client = {
-  name: string; // juntar com sobrenome
-  password: string;
-  confirmPassword: string;
-  email: string;
-  birthDate: string;
-  phone: string;
-  cpf?: string;
-  cnpj?: string;
-  cep: string;
-  address: string;
-  imageProfile: string;
-
-  //status mandar sempre true
-};
-
-type Professional = {
-  name: string; // juntar com sobrenome
-  password: string;
-  confirmPassword: string;
-  email: string;
-  birthDate: string;
-  phone: string;
-  cpf?: string;
-  cnpj?: string;
-  cep: string;
-  address: string;
-  imageProfile: string;
-  linkedin?: string;
-  mainProfession: string;
-  aboutMe: string;
-};
+import MaskedInput from '../utils/MaskedInput';
+import Router from 'next/router';
 
 const urlCustomer = 'http://localhost:3001/customer';
 const urlWorker = 'http://localhost:3001/worker';
 
 export default function Criarusuario() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [abaSelecionada, setAbaSelecionada] = useState(0);
   const [abaPessoa, setAbaPessoa] = useState(0);
+  const [cpf, setCPF] = useState('');
+  const [cnpj, setCNPJ] = useState('');
+  const [cep, setCEP] = useState('');
+  const [phone, setPhone] = useState('');
 
   const [data, setData] = useState({
     name: '',
@@ -51,10 +23,6 @@ export default function Criarusuario() {
     gender: '',
     email: '',
     birthDate: '',
-    phone: '',
-    cpf: '',
-    cnpj: '',
-    cep: '',
     address: '',
     imageProfile: '',
     linkedin: '',
@@ -71,59 +39,84 @@ export default function Criarusuario() {
 
   async function onSubmit() {
     event.preventDefault();
-    if (abaSelecionada === 0) {
-      if (abaPessoa === 0) {
-        // conta com cpf
-        const request = await axios.post(
-          urlCustomer,
-          {
-            fullName: data.name,
-            password: data.password,
-            gender: data.gender.toLowerCase(),
-            document: data.cpf,
-            cellPhone: data.phone,
-            birth_date: data.birthDate,
-            email: data.email,
-            status: true,
-          },
-          {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'POST ',
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-
-        console.log(request);
-      }
-      //conta cliente
+    if (data.password !== data.confirmPassword) {
+      alert('Campo de senha diferente do campo de confirmar senha!');
     } else {
-      if (abaPessoa === 0) {
-        const request = await axios.post(
-          urlWorker,
-          {
-            fullName: data.name,
-            password: data.password,
-            gender: data.gender,
-            document: data.cpf,
-            cellPhone: data.phone,
-            birth_date: data.birthDate,
-            email: data.email,
-            available: data.aboutMe,
-            //linkedIn: data.linkedin,
-            photo_url: data.imageProfile,
-            status: true,
-          },
-          {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'POST ',
-              'Content-Type': 'application/json',
+      if (abaSelecionada === 0) {
+        try {
+          await axios.post(
+            urlCustomer,
+            {
+              fullName: data.name,
+              password: data.password,
+              gender: data.gender.toLowerCase(),
+              document: abaPessoa === 0 ? cpf : cnpj,
+              cellPhone: phone,
+              birthDate: data.birthDate,
+              email: data.email,
+              cep: cep,
+              address: data.address,
+              status: true,
             },
+            {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST ',
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          alert('Usuário criado com sucesso');
+          Router.push('/');
+        } catch (e) {
+          if (e.response.status === 409) {
+            alert(
+              'CPF ou e-mail já cadastrados. Não foi possivel cadastrar sua conta, tente novamente'
+            );
+          } else {
+            alert('Algo deu errado, o usuário não foi criado');
           }
-        );
-        console.log(request.status);
+        }
+      } else {
+        try {
+          await axios.post(
+            urlWorker,
+            {
+              fullName: data.name,
+              password: data.password,
+              gender: data.gender,
+              mainProfession: data.mainProfession,
+              document: abaPessoa === 0 ? cpf : cnpj,
+              cellPhone: phone,
+              birthDate: data.birthDate,
+              email: data.email,
+              description: data.aboutMe,
+              linkedIn: data.linkedin,
+              photoUrl: data.imageProfile,
+              cep: cep,
+              address: data.address,
+              status: true,
+            },
+            {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST ',
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          alert('Usuário criado com sucesso');
+          Router.push('/');
+        } catch (e) {
+          if (e.response.status === 409) {
+            alert(
+              'CPF ou e-mail já cadastrados. Não foi possivel cadastrar sua conta, tente novamente'
+            );
+          } else {
+            alert('Algo deu errado, o usuário não foi criado');
+          }
+        }
       }
     }
   }
@@ -284,45 +277,49 @@ export default function Criarusuario() {
                 </div>
                 <div className={styles.inputLabel}>
                   <label> Telefone*: </label>
-                  <input
-                    onChange={(e) => handle(e)}
-                    id='phone'
-                    value={data.phone}
-                    placeholder='Digite seu telefone'
-                    required
-                    type='text'
+                  <MaskedInput
+                    mask='(99)99999-9999'
+                    value={phone}
+                    placeholder='Digite seu telefone de contato'
+                    minLength='14'
+                    onChange={(event) => setPhone(event.target.value)}
                   />
                 </div>
                 <div className={styles.inputLabel}>
+                  {console.log(cpf)}
                   {abaPessoa === 0 ? (
                     <>
                       <label> CPF*: </label>
-                      <input
-                        onChange={(e) => handle(e)}
-                        id='cpf'
-                        value={data.cpf}
+                      <MaskedInput
+                        mask='999.999.999-99'
+                        value={cpf}
                         placeholder='Digite seu CPF'
-                        required
-                        type='text'
+                        minLength='14'
+                        onChange={(event) => setCPF(event.target.value)}
                       />
                     </>
                   ) : (
                     <>
                       <label> CNPJ*: </label>
-                      <input
-                        onChange={(e) => handle(e)}
-                        id='cnpj'
-                        value={data.cnpj}
+                      <MaskedInput
+                        mask='99.999.999/9999-99'
+                        value={cnpj}
                         placeholder='Digite seu CNPJ'
-                        required
-                        type='text'
+                        minLength='19'
+                        onChange={(event) => setCNPJ(event.target.value)}
                       />
                     </>
                   )}
                 </div>
-                {/* <div className={styles.inputLabel}>
+                <div className={styles.inputLabel}>
                   <label> CEP*: </label>
-                  <input placeholder='Digite seu cpf' required type='text' />
+                  <MaskedInput
+                    mask='99.999-999'
+                    value={cep}
+                    placeholder='Digite seu CEP'
+                    minLength='10'
+                    onChange={(event) => setCEP(event.target.value)}
+                  />
                 </div>
                 <div className={styles.inputLabel}>
                   <label> Endereço*: </label>
@@ -334,7 +331,7 @@ export default function Criarusuario() {
                     required
                     type='text'
                   />
-                </div> */}
+                </div>
                 <div className={styles.inputLabel}>
                   <label>Foto de Perfil*: </label>
                   <input
@@ -364,15 +361,21 @@ export default function Criarusuario() {
                   <>
                     <div className={styles.inputLabel}>
                       <label> Linkedin: </label>
-                      <input placeholder='Digite seu Linkedin' type='text' />
-                    </div>
-                    <div className={styles.inputLabel}>
-                      <label> Profissão principal*: </label>
                       <input
                         onChange={(e) => handle(e)}
                         id='linkedin'
                         value={data.linkedin}
                         placeholder='Digite seu Linkedin'
+                        type='text'
+                      />
+                    </div>
+                    <div className={styles.inputLabel}>
+                      <label> Profissão principal*: </label>
+                      <input
+                        onChange={(e) => handle(e)}
+                        id='mainProfession'
+                        value={data.mainProfession}
+                        placeholder='Digite sua profissão principal'
                         required
                         type='text'
                       />
@@ -383,7 +386,7 @@ export default function Criarusuario() {
                         onChange={(e) => handle(e)}
                         id='aboutMe'
                         value={data.aboutMe}
-                        placeholder='Descreva suas principais características e pontos positivos. Fale um pouco sobre o motivo pelo qual alguém deveria contratar seus serviços '
+                        placeholder='Descreva suas principais características e pontos positivos. Fale um pouco sobre o motivo pelo qual alguém deveria contratar seus serviços. Deixe claro seus horarios disponíveis para trabalho e os outros serviços que presta se houver, além de sua profissão principal'
                         required
                       ></textarea>
                     </div>
