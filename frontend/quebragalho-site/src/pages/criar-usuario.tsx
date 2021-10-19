@@ -338,7 +338,7 @@ export default function Criarusuario() {
                     onChange={(e) => handle(e)}
                     id='imageProfile'
                     value={data.imageProfile}
-                    placeholder='digite o link da foto de perfil'
+                    placeholder='Digite o link da foto de perfil'
                     required
                     type='text'
                   />
