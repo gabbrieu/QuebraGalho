@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
@@ -30,7 +31,67 @@ export default function PerfilUsuario() {
                 </div>
               </section>
             </div>
-            <div className={styles.rightSide}>aaa</div>
+            <div className={styles.rightSide}>
+              <div className={styles.servicosUsuario}>
+                <h2>Contrate meus serviços</h2>
+                <div className={styles.cardsServicos}>
+                  <div className={styles.cardServico}>
+                    <img src='img/content/servico.png' />
+                    <h3> Serviço de Pedreiro</h3>
+                    <span>
+                      Presto serviços de pedreiro para casas e apartamentos.
+                      Valores a combinar.
+                    </span>
+                    <div className={styles.buttonsCard}>
+                      <button>
+                        <span>EXIBIR DETALHES</span>
+                        <img src='icons/iconPlus.svg' />
+                      </button>
+                      <button>
+                        <span>COMBINAR SERVIÇO</span>
+                        <img src='icons/iconCombinarButton.svg' />
+                      </button>
+                    </div>
+                  </div>
+                  <div className={styles.cardServico}>
+                    <img src='img/content/servico.png' />
+                    <h3> Serviço de Pedreiro</h3>
+                    <span>
+                      Presto serviços de pedreiro para casas e apartamentos.
+                      Valores a combinar.
+                    </span>
+                    <div className={styles.buttonsCard}>
+                      <button>
+                        <span>EXIBIR DETALHES</span>
+                        <img src='icons/iconPlus.svg' />
+                      </button>
+                      <button>
+                        <span>COMBINAR SERVIÇO</span>
+                        <img src='icons/iconCombinarButton.svg' />
+                      </button>
+                    </div>
+                  </div>
+                  <div className={styles.cardServico}>
+                    <img src='img/content/servico.png' />
+                    <h3> Serviço de Pedreiro</h3>
+                    <span>
+                      Presto serviços de pedreiro para casas e apartamentos.
+                      Valores a combinar.
+                    </span>
+                    <div className={styles.buttonsCard}>
+                      <button>
+                        <span>EXIBIR DETALHES</span>
+                        <img src='icons/iconPlus.svg' />
+                      </button>
+                      <button>
+                        <span>COMBINAR SERVIÇO</span>
+                        <img src='icons/iconCombinarButton.svg' />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
