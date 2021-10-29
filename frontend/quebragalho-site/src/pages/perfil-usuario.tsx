@@ -19,6 +19,41 @@ export default function PerfilUsuario() {
         <div className={styles.background}>
           <div className={styles.container}>
             <div className={styles.leftSide}>
+              <section className={styles.boxInfoUsuario}>
+                <div className={styles.informacoesAdicionais}>
+                  <h3>Informações Adicionais</h3>
+                  <div className={styles.informacaoAdicional}>
+                    <span>Telefone: </span>
+                    <span>(99)99999-9999</span>
+                  </div>
+                  <div className={styles.informacaoAdicional}>
+                    <span>E-mail: </span>
+                    <span>joseluizpedreiro@gmail.com</span>
+                  </div>
+                  <div className={styles.informacaoAdicional}>
+                    <span>Cidade: </span>
+                    <span>Itabira - MG</span>
+                  </div>
+                  <div className={styles.informacaoAdicional}>
+                    <span>Profissão Principal: </span>
+                    <span>Pedreiro</span>
+                  </div>
+                  <div className={styles.informacaoAdicional}>
+                    <span>Faço também trabalhos de: </span>
+                    <span>Carpinteiro, Pintor</span>
+                  </div>
+                  <div className={styles.informacaoAdicional}>
+                    <span>Linkedin: </span>
+                    <span>https://www.linkedin.com/joseluispedreiro</span>
+                  </div>
+                  <div className={styles.informacaoAdicional}>
+                    <span>Status: </span>
+                    <span className={styles.verdeStatus}>
+                      Disponível para trabalho
+                    </span>
+                  </div>
+                </div>
+              </section>
               <section className={styles.numerosPlataforma}>
                 <h3> Números na plataforma </h3>
                 <div className={styles.numeroPlataforma}>
@@ -32,7 +67,7 @@ export default function PerfilUsuario() {
               </section>
             </div>
             <div className={styles.rightSide}>
-              <div className={styles.servicosUsuario}>
+              <section className={styles.servicosUsuario}>
                 <h2>Contrate meus serviços</h2>
                 <div className={styles.cardsServicos}>
                   <div className={styles.cardServico}>
@@ -90,7 +125,7 @@ export default function PerfilUsuario() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </section>
             </div>
           </div>
         </div>
