@@ -20,6 +20,17 @@ export default function PerfilUsuario() {
           <div className={styles.container}>
             <div className={styles.leftSide}>
               <section className={styles.boxInfoUsuario}>
+                <div className={styles.informacoesPrincipais}>
+                  <h1>José Luis</h1>
+                  <span>Pedreiro | Carpinteiro | Pintor </span>
+                  <img src='img/content/staricon.svg' />
+                  <p>
+                    Trabalho como pedreiro há mais de 20 anos, sou bem
+                    caprichoso e tenho preços muito acessíveis. Sou uma pessoa
+                    bem tranquila e responsável. Aceito Pix e dinheiro nos meus
+                    serviços.
+                  </p>
+                </div>
                 <div className={styles.informacoesAdicionais}>
                   <h3>Informações Adicionais</h3>
                   <div className={styles.informacaoAdicional}>

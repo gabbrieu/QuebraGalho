@@ -29,6 +29,37 @@
     width: 100%;
     margin-top: 2rem;
 
+    .informacoesPrincipais {
+      border-bottom: 1px var(--grey100) solid;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      h1 {
+        font-size: 1.75rem;
+        line-height: 25px;
+        color: var(--QG300);
+        margin-bottom: 0.75rem;
+        margin-top: 1rem;
+      }
+
+      span {
+        color: var(--QG300);
+      }
+
+      img {
+        max-height: 22px;
+        margin-top: 0.75rem;
+      }
+
+      p {
+        text-align: center;
+        margin: 1rem;
+        color: var(--black);
+        line-height: 25px;
+      }
+    }
+
     .informacaoAdicional:last-child {
       margin-bottom: 2rem;
       padding-bottom: 0px;
@@ -126,7 +157,7 @@
         font: 400 1rem 'Roboto', sans-serif;
         padding-left: 10px;
         padding-right: 10px;
-        line-height: 20px;
+        line-height: 25px;
         text-align: center;
       }
 
