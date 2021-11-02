@@ -21,6 +21,14 @@ export default function PerfilUsuario() {
             <div className={styles.leftSide}>
               <section className={styles.boxInfoUsuario}>
                 <div className={styles.informacoesPrincipais}>
+                  <div className={styles.fotoeCapa}>
+                    <div className={styles.capaPerfil}>
+                      <img src='img/content/capaPerfil.png' />
+                    </div>
+                    <div className={styles.fotoPerfil}>
+                     <img src='img/content/fotoPerfil.png' />
+                    </div>
+                  </div>
                   <h1>José Luis</h1>
                   <span>Pedreiro | Carpinteiro | Pintor </span>
                   <img src='img/content/staricon.svg' />

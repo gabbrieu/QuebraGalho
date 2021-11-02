@@ -35,6 +35,30 @@
       flex-direction: column;
       text-align: center;
 
+      .fotoeCapa{
+        width: 100%;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+
+        .capaPerfil img{
+          width: 100%;
+          height: auto;
+          max-height: none;
+          margin:0;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+
+        .fotoPerfil img{
+          max-height: none;
+          margin-top: -70px;
+          border-radius: 100px;
+          border: solid 3px var(--white)
+        }
+
+      }
+
       h1 {
         font-size: 1.75rem;
         line-height: 25px;
