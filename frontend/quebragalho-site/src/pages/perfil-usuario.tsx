@@ -2,10 +2,14 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
+import { useState } from 'react';
 import { MenuLogged } from '../components/MenuLogged';
+import {ModalService } from '../components/ModalService';
 import styles from '../styles/pages/Perfilusuario.module.scss';
 
 export default function PerfilUsuario() {
+  const [hiddenModal, setHiddenModal] = useState(true); 
+
   return (
     <>
       <Head>
@@ -16,6 +20,43 @@ export default function PerfilUsuario() {
       <MenuLogged />
 
       <main>
+        <div hidden={hiddenModal} className={!hiddenModal ? styles.modalBackground : ''}>
+          <div className={!hiddenModal ? styles.modalContent : ''}>
+            <h2>Solicitar Serviço</h2>
+            <div className={styles.camposModal}>
+              <div className={styles.campoModalRow}>
+                  <span>Serviço Solicitado: </span>
+                  <span>Serviço de Pintor </span>
+              </div>
+              <div className={styles.campoModalRow}>
+                  <span>Nome do Cliente: </span>
+                  <span>Luiz Ricardo </span>
+              </div>
+              <div className={styles.campoModalRow}>
+                  <span>Nome do Profissional: </span>
+                  <span>José Luis</span>
+              </div>
+              <div className={styles.campoModalColumn}>
+                  <span>Datas e horas disponíveis para realização do serviço*: </span>
+                  <input type="text" placeholder="Digite suas preferencias de data para realização do serviço" required></input>
+              </div>
+              <div className={styles.campoModalColumn}>
+                  <span>Endereço em que o serviço deve ser realizado*: </span>
+                  <input type="text" placeholder="Digite o endereço em que o serviço deve ser realizado" required></input>
+              </div>
+              <div className={styles.campoModalColumn}>
+                  <span>Descrição do pedido de serviço*:  </span>
+                  <textarea  placeholder="Descreva o mais detalhado possível sobre o serviço que deseja solicitar. Ex: Gostaria de contratar um pintor para pintar meu quarto de 20 metros quadrados. As tintas para a pintura já foram compradas." required></textarea>
+                  <span className={styles.camposObrigatorios}>* Campos obrigatorios</span>
+              </div>
+              <div className={styles.botoesModal}>
+                <button onClick={()=>setHiddenModal(true)}>Cancelar</button>
+                <button onClick={()=>setHiddenModal(true)}>Solicitar</button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
         <div className={styles.background}>
           <div className={styles.container}>
             <div className={styles.leftSide}>
@@ -101,7 +142,7 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button>
+                      <button onClick={()=> setHiddenModal(false)}>
                         <span>COMBINAR SERVIÇO</span>
                         <img src='icons/iconCombinarButton.svg' />
                       </button>
@@ -119,7 +160,7 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button>
+                      <button onClick={()=> setHiddenModal(false)}>
                         <span>COMBINAR SERVIÇO</span>
                         <img src='icons/iconCombinarButton.svg' />
                       </button>
@@ -137,10 +178,12 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button>
+                      <button onClick={()=> setHiddenModal(false)}>
                         <span>COMBINAR SERVIÇO</span>
                         <img src='icons/iconCombinarButton.svg' />
                       </button>
+
+                      {console.log(hiddenModal)}
                     </div>
                   </div>
                 </div>
