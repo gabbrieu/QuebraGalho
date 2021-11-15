@@ -41,6 +41,26 @@
         flex: 1;
         flex-direction: column;
 
+        .editarIcon button{
+          background-color: var(--QG300);
+          height: 50px;
+          width: 50px;
+          text-align: center;
+          margin-top: -35px;
+          margin-left: 220px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+
+          img{
+            margin-top: 0%;
+            border: none;
+            border-radius: 0;
+          }
+        }
+
         .capaPerfil img{
           width: 100%;
           height: auto;
@@ -320,6 +340,7 @@
 
     .campoModalColumn{
       display: flex;
+      flex: 1;
       flex-direction: column;
       padding-bottom: 1.25rem;
 
@@ -331,6 +352,14 @@
       }
 
       input{
+        border-radius: 5px;
+        height: 40px;
+        border: solid 1px var(--grey100);
+        padding-left: 10px;
+        font: 0.8rem 'Roboto', sans-serif;
+      }
+
+      select{
         border-radius: 5px;
         height: 40px;
         border: solid 1px var(--grey100);
@@ -376,6 +405,16 @@
           opacity: 1;
           margin-left: 1rem;
         }
+      }
+    }
+
+    .modalColumn{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .campoModalColumn:last-child {
+        margin-left: 10px;
       }
     }
   }

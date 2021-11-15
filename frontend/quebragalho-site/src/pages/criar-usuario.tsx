@@ -270,7 +270,7 @@ export default function Criarusuario() {
                     onChange={(e) => handle(e)}
                     id='birthDate'
                     value={data.birthDate}
-                    placeholder='Digite sua senha'
+                    placeholder='Digite sua data de nascimento'
                     required
                     type='date'
                   />
