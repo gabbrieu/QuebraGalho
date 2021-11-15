@@ -17,13 +17,17 @@ export default function PerfilUsuario() {
         <meta name='description' content='Projeto Quebra Galho' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <MenuLogged imgLink="img/layout/imgMenuPerfil.svg"/>
+      <MenuLogged imgLink="img/content/fotoPerfil.png" />
 
       <main>
         <div hidden={hiddenModal} className={!hiddenModal ? styles.modalBackground : ''}>
           <div className={!hiddenModal ? styles.modalContent : ''}>
-            <h2>Solicitar Serviço</h2>
+            <h2>Editar Serviço</h2>
             <div className={styles.camposModal}>
+            <div className={styles.campoModalColumn}>
+                  <span>Nome*: </span>
+                  <input type="text" placeholder="José" required></input>
+              </div>
               <div className={styles.campoModalRow}>
                   <span>Serviço Solicitado: </span>
                   <span>Serviço de Pintor </span>
@@ -73,6 +77,12 @@ export default function PerfilUsuario() {
                   <h1>José Luis</h1>
                   <span>Pedreiro | Carpinteiro | Pintor </span>
                   <img src='img/content/staricon.svg' />
+                  <div className={styles.buttonEdit}>
+                    <button onClick={()=> setHiddenModal(false)}>
+                        <span>EDITAR PERFIL</span>
+                        <img src='icons/iconEditar.svg' />
+                    </button>
+                  </div>
                   <p>
                     Trabalho como pedreiro há mais de 20 anos, sou bem
                     caprichoso e tenho preços muito acessíveis. Sou uma pessoa
@@ -142,9 +152,9 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
+                      <button>
+                        <span>ALTERAR SERVIÇO</span>
+                        <img src='icons/iconEditar.svg' />
                       </button>
                     </div>
                   </div>
@@ -160,9 +170,9 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
+                      <button>
+                        <span>ALTERAR SERVIÇO</span>
+                        <img src='icons/iconEditar.svg' />
                       </button>
                     </div>
                   </div>
@@ -178,11 +188,15 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
+                      <button>
+                        <span>ALTERAR SERVIÇO</span>
+                        <img src='icons/iconEditar.svg' />
                       </button>
                     </div>
+                  </div>
+                  <div className={styles.cardAdicionar}>
+                    <img src='icons/iconPlus.svg' />
+                    <span>ADICIONAR SERVIÇO</span>
                   </div>
                 </div>
               </section>

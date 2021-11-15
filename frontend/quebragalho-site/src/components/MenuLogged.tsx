@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import styles from '../styles/components/MenuLogged.module.scss';
-export function MenuLogged() {
+export function MenuLogged(props) {
   return (
     <div className={styles.menuContainerFluid}>
       <div className={styles.menuContainer}>
@@ -38,7 +39,7 @@ export function MenuLogged() {
           </div>
           <div className={styles.boxIconEu}>
             <a href='#'>
-              <img src='img/layout/imgMenuPerfil.svg' />
+              <img src= {props.imgLink} />
               <div className={styles.euLink}>
                 <span> Eu </span>
                 <img src='img/layout/dropdown.svg' />
