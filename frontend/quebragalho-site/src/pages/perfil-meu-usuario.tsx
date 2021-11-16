@@ -201,7 +201,7 @@ export default function PerfilUsuario() {
                         <span>ALTERAR SERVIÇO</span>
                         <img src='icons/iconEditar.svg' />
                       </button>
-                      <button>
+                      <button className={styles.botaoDeletar}>
                         <span>EXCLUIR SERVIÇO</span>
                         <img src='icons/iconDelete.svg' />
                       </button>
@@ -223,7 +223,7 @@ export default function PerfilUsuario() {
                         <span>ALTERAR SERVIÇO</span>
                         <img src='icons/iconEditar.svg' />
                       </button>
-                      <button>
+                      <button className={styles.botaoDeletar}>
                         <span>EXCLUIR SERVIÇO</span>
                         <img src='icons/iconDelete.svg' />
                       </button>
@@ -245,8 +245,8 @@ export default function PerfilUsuario() {
                         <span>ALTERAR SERVIÇO</span>
                         <img src='icons/iconEditar.svg' />
                       </button>
-                      <button>
-                        <span>EXCLUIR SERVIÇO</span>
+                      <button className={styles.botaoDeletar}>
+                        <span >EXCLUIR SERVIÇO</span>
                         <img src='icons/iconDelete.svg' />
                       </button>
                     </div>
