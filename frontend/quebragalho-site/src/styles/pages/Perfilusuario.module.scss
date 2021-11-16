@@ -267,6 +267,10 @@
           background: var(--QG300);
           opacity: 0.5;
         }
+
+        button:last-child {
+          background: var(--red);
+        }
       }
     }
     .cardAdicionar {

@@ -201,23 +201,9 @@ export default function PerfilUsuario() {
                         <span>ALTERAR SERVIÇO</span>
                         <img src='icons/iconEditar.svg' />
                       </button>
-                    </div>
-                  </div>
-                  <div className={styles.cardServico}>
-                    <img src='img/content/servico.png' />
-                    <h3> Serviço de Pedreiro</h3>
-                    <span>
-                      Presto serviços de pedreiro para casas e apartamentos.
-                      Valores a combinar.
-                    </span>
-                    <div className={styles.buttonsCard}>
                       <button>
-                        <span>EXIBIR DETALHES</span>
-                        <img src='icons/iconPlus.svg' />
-                      </button>
-                      <button>
-                        <span>ALTERAR SERVIÇO</span>
-                        <img src='icons/iconEditar.svg' />
+                        <span>EXCLUIR SERVIÇO</span>
+                        <img src='icons/iconDelete.svg' />
                       </button>
                     </div>
                   </div>
@@ -236,6 +222,32 @@ export default function PerfilUsuario() {
                       <button>
                         <span>ALTERAR SERVIÇO</span>
                         <img src='icons/iconEditar.svg' />
+                      </button>
+                      <button>
+                        <span>EXCLUIR SERVIÇO</span>
+                        <img src='icons/iconDelete.svg' />
+                      </button>
+                    </div>
+                  </div>
+                  <div className={styles.cardServico}>
+                    <img src='img/content/servico.png' />
+                    <h3> Serviço de Pedreiro</h3>
+                    <span>
+                      Presto serviços de pedreiro para casas e apartamentos.
+                      Valores a combinar.
+                    </span>
+                    <div className={styles.buttonsCard}>
+                      <button>
+                        <span>EXIBIR DETALHES</span>
+                        <img src='icons/iconPlus.svg' />
+                      </button>
+                      <button>
+                        <span>ALTERAR SERVIÇO</span>
+                        <img src='icons/iconEditar.svg' />
+                      </button>
+                      <button>
+                        <span>EXCLUIR SERVIÇO</span>
+                        <img src='icons/iconDelete.svg' />
                       </button>
                     </div>
                   </div>
