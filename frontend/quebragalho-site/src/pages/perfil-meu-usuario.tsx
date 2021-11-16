@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { MenuLogged } from '../components/MenuLogged';
 import {ModalService } from '../components/ModalService';
+import { Rodape } from '../components/Rodape';
 import styles from '../styles/pages/Perfilusuario.module.scss';
 
 export default function PerfilUsuario() {
@@ -17,46 +18,91 @@ export default function PerfilUsuario() {
         <meta name='description' content='Projeto Quebra Galho' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <MenuLogged imgLink="img/layout/imgMenuPerfil.svg"/>
+      <MenuLogged imgLink="img/content/fotoPerfil.png" />
 
       <main>
         <div hidden={hiddenModal} className={!hiddenModal ? styles.modalBackground : ''}>
           <div className={!hiddenModal ? styles.modalContent : ''}>
-            <h2>Solicitar Serviço</h2>
+            <h2>Editar Perfil</h2>
             <div className={styles.camposModal}>
-              <div className={styles.campoModalRow}>
-                  <span>Serviço Solicitado: </span>
-                  <span>Serviço de Pintor </span>
+              <div className={styles.modalColumn}>
+                <div className={styles.campoModalColumn}>
+                    <span>Nome*: </span>
+                    <input type="text" placeholder="José" required></input>
+                </div>
+                <div className={styles.campoModalColumn}>
+                    <span>Sobrenome*: </span>
+                    <input type="text" placeholder="Luis" required></input>
+                </div>
               </div>
-              <div className={styles.campoModalRow}>
-                  <span>Nome do Cliente: </span>
-                  <span>Luiz Ricardo </span>
+              <div className={styles.modalColumn}>
+                <div className={styles.campoModalColumn}>
+                    <span>E-mail*: </span>
+                    <input type="email" placeholder="joseluispedreiro@gmail.com" required></input>
+                </div>
+                <div className={styles.campoModalColumn}>
+                    <span>Data de nascimento*: </span>
+                    <input type="date" placeholder="03/08/1960" required></input>
+                </div>
               </div>
-              <div className={styles.campoModalRow}>
-                  <span>Nome do Profissional: </span>
-                  <span>José Luis</span>
+              <div className={styles.modalColumn}>
+                <div className={styles.campoModalColumn}>
+                    <span>Telefone*: </span>
+                    <input type="tel" placeholder="(99)99999-9999" required></input>
+                </div>
+                <div className={styles.campoModalColumn}>
+                    <span>CPF*: </span>
+                    <input type="text" placeholder="999.999.999-99" required></input>
+                </div>
+              </div>
+              <div className={styles.modalColumn}>
+                <div className={styles.campoModalColumn}>
+                    <span>Cidade*: </span>
+                    <input type="text" placeholder="Itabira-MG" required></input>
+                </div>
+                <div className={styles.campoModalColumn}>
+                    <span>CEP*: </span>
+                    <input type="text" placeholder="55555-55" required></input>
+                </div>
+              </div>
+              <div className={styles.modalColumn}>
+                <div className={styles.campoModalColumn}>
+                    <span>Profissão Principal*: </span>
+                    <input type="text" placeholder="Pedreiro" required></input>
+                </div>
+                <div className={styles.campoModalColumn}>
+                    <span>Serviços Prestados*: </span>
+                    <input type="text" placeholder="Carpinteiro, Pintor" required></input>
+                </div>
+              </div>
+              <div className={styles.modalColumn}>
+                <div className={styles.campoModalColumn}>
+                    <span>Linkedin: </span>
+                    <input type="text" placeholder="linkedin.com/joseluispedreiro"></input>
+                </div>
+                <div className={styles.campoModalColumn}>
+                    <span>Status de Atendimento*: </span>
+                    <select id="status">
+                        <option value="Disponível para trabalho" selected>Disponível para trabalho</option>
+                        <option value="Ocupado no momento">Ocupado no momento</option>
+                        <option value="Indisponível para trabalho">Indisponível para trabalho</option>
+                    </select>
+                </div>
               </div>
               <div className={styles.campoModalColumn}>
-                  <span>Datas e horas disponíveis para realização do serviço*: </span>
-                  <input type="text" placeholder="Digite suas preferencias de data para realização do serviço" required></input>
-              </div>
-              <div className={styles.campoModalColumn}>
-                  <span>Endereço em que o serviço deve ser realizado*: </span>
-                  <input type="text" placeholder="Digite o endereço em que o serviço deve ser realizado" required></input>
-              </div>
-              <div className={styles.campoModalColumn}>
-                  <span>Descrição do pedido de serviço*:  </span>
+                  <span>Descrição*:  </span>
                   <textarea  placeholder="Descreva o mais detalhado possível sobre o serviço que deseja solicitar. Ex: Gostaria de contratar um pintor para pintar meu quarto de 20 metros quadrados. As tintas para a pintura já foram compradas." required></textarea>
                   <span className={styles.camposObrigatorios}>* Campos obrigatorios</span>
               </div>
               <div className={styles.botoesModal}>
                 <button onClick={()=>setHiddenModal(true)}>Cancelar</button>
-                <button onClick={()=>setHiddenModal(true)}>Solicitar</button>
+                <button onClick={()=>setHiddenModal(true)}>Salvar</button>
               </div>
             </div>
           </div>
           
         </div>
+
         <div className={styles.background}>
           <div className={styles.container}>
             <div className={styles.leftSide}>
@@ -68,11 +114,20 @@ export default function PerfilUsuario() {
                     </div>
                     <div className={styles.fotoPerfil}>
                      <img src='img/content/fotoPerfil.png' />
+                     <div className={styles.editarIcon}>
+                        <button><img src='icons/iconEditar.svg' /></button>
+                    </div>
                     </div>
                   </div>
                   <h1>José Luis</h1>
                   <span>Pedreiro | Carpinteiro | Pintor </span>
                   <img src='img/content/staricon.svg' />
+                  <div className={styles.buttonEdit}>
+                    <button onClick={()=> setHiddenModal(false)}>
+                        <span>EDITAR PERFIL</span>
+                        <img src='icons/iconEditar.svg' />
+                    </button>
+                  </div>
                   <p>
                     Trabalho como pedreiro há mais de 20 anos, sou bem
                     caprichoso e tenho preços muito acessíveis. Sou uma pessoa
@@ -142,9 +197,13 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
+                      <button>
+                        <span>ALTERAR SERVIÇO</span>
+                        <img src='icons/iconEditar.svg' />
+                      </button>
+                      <button>
+                        <span>EXCLUIR SERVIÇO</span>
+                        <img src='icons/iconDelete.svg' />
                       </button>
                     </div>
                   </div>
@@ -160,9 +219,13 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
+                      <button>
+                        <span>ALTERAR SERVIÇO</span>
+                        <img src='icons/iconEditar.svg' />
+                      </button>
+                      <button>
+                        <span>EXCLUIR SERVIÇO</span>
+                        <img src='icons/iconDelete.svg' />
                       </button>
                     </div>
                   </div>
@@ -178,11 +241,19 @@ export default function PerfilUsuario() {
                         <span>EXIBIR DETALHES</span>
                         <img src='icons/iconPlus.svg' />
                       </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
+                      <button>
+                        <span>ALTERAR SERVIÇO</span>
+                        <img src='icons/iconEditar.svg' />
+                      </button>
+                      <button>
+                        <span>EXCLUIR SERVIÇO</span>
+                        <img src='icons/iconDelete.svg' />
                       </button>
                     </div>
+                  </div>
+                  <div className={styles.cardAdicionar}>
+                    <img src='icons/iconPlus.svg' />
+                    <span>ADICIONAR SERVIÇO</span>
                   </div>
                 </div>
               </section>
