@@ -42,6 +42,8 @@
 .rightSide {
   display: flex;
   flex: 2;
+  flex-direction: column;
+  margin-bottom: 1rem;
 
   .boxServico{
     margin-top: 2rem;
@@ -69,9 +71,10 @@
     p{
       padding-left: 1.5rem;
       padding-right: 1.5rem;
-      line-height: 25px;
+      line-height: 20px;
       text-align: justify;
       margin-bottom: 1rem;
+      color: var(--black);
     }
 
     .camposServico{
@@ -81,6 +84,10 @@
       
       .campoServico{
         margin-bottom: 0.5rem;
+
+        span{
+          color: var(--black);
+        }
 
         span:first-child {
           font-weight: 700;
@@ -108,6 +115,93 @@
         }
       }
     }
+  }
+
+  h2{
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 1.625rem;
+    color: var(--QG300);
+  }
+
+  .boxDepoimentos{
+    border-radius: 10px;
+    box-shadow: 4px 5px 15px -5px rgba(0, 0, 0, 0.25);
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+
+    .cabecalhoDepoimentos{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--QG300);
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+
+      img{
+        max-height: 40px;
+        margin-left: 0.625rem;
+        margin-right: 0.625rem;
+      }
+
+      span{
+        font: 700 1.125rem 'Roboto', sans-serif;
+        color: var(--white);
+      }
+    }
+    .conteudoDepoimento{
+      display: flex;
+      
+      .fotoPerfilDep{
+        padding-top: 1rem;
+        padding-left: 1rem;
+        img{
+          border-radius: 100%;
+        }
+      }
+  
+      .camposDepoimento{
+        margin-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+  
+        h2{
+          margin: 0;
+          font-size: 1.5rem;
+          text-align: left;
+        }
+
+        p{
+          color: var(--black);
+          line-height: 20px;
+          margin-top: 0.8rem;
+          margin-bottom: 0.8rem;
+          text-align: justify;
+        }
+
+        .notaDepoimento{
+          display: flex;
+          align-items: center;
+          padding-bottom: 1.5rem;
+
+          span{
+            font: 700 1rem 'Roboto', sans-serif;
+            color: var(--QG300);
+            padding-right: 0.5rem;
+          }
+
+          img{
+            max-height: 22px;
+          }
+        }
+      }
+    }
+
   }
 
 }
