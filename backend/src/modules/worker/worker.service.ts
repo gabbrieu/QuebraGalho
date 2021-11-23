@@ -2,7 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -88,8 +88,9 @@ export class WorkerService {
   async getOne(id: string): Promise<Worker> {
     try {
       const worker = await this.repository.findOneOrFail(id, {
-        relations: ['services'],
+        relations: ['services', 'accounts'],
       });
+      delete worker.accounts.password;
       return worker;
     } catch (error) {
       throw new NotFoundException('Trabalhador não existe');
