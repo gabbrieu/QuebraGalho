@@ -2,7 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -85,8 +85,9 @@ export class CustomerService {
   async getOne(id: string): Promise<Customer> {
     try {
       const customer = await this.repository.findOneOrFail(id, {
-        loadRelationIds: true,
+        relations: ['accounts']
       });
+      delete customer.accounts.password;
       return customer;
     } catch (error) {
       throw new NotFoundException('Erro! Cliente não existe');
