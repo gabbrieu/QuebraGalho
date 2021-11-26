@@ -71,7 +71,7 @@
         }
 
         .fotoPerfil img{
-          max-height: none;
+          max-height: 100%;
           margin-top: -70px;
           border-radius: 100px;
           border: solid 3px var(--white)
@@ -407,6 +407,29 @@
 
         &:last-child{
           opacity: 1;
+          margin-left: 1rem;
+        }
+      }
+
+      .botaoDeletar{
+        background: var(--red);
+      }
+    }
+
+    .botoesModalPhotos{
+      display: flex;
+      justify-content: left;
+
+      button{
+        text-transform: none;
+        font: 0.8rem 'Roboto', sans-serif;
+        opacity: 1;
+        cursor: pointer;
+        width: 135px;
+        height: 40px;
+
+        
+        &:last-child{
           margin-left: 1rem;
         }
       }
