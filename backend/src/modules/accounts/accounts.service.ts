@@ -15,7 +15,7 @@ export class AccountsService {
   ) {}
 
   async getByEmail(email: string): Promise<Accounts> {
-    return await this.repository.findOne({ email });
+    return await this.repository.findOne({ email }, { loadRelationIds: true });
   }
 
   async create(req: CreateAccountsDto): Promise<Accounts> {
