@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
+import Router from 'next/router';
 import { MenuLogged } from '../components/MenuLogged';
 import styles from '../styles/pages/Servico.module.scss';
 
@@ -27,13 +28,13 @@ return(
           </div>
           <div className={styles.rightSide}>
               <div className = {styles.boxServico}>
-                <h1>Serviço do Pedreiro</h1>
+                <h1> { Router.query.name } </h1>
                 <img src="img/content/staricon.svg"/>
-                <p> Trabalho como pedreiro há mais de 20 anos, sou bem caprichoso e tenho preços muito acessíveis. Sou uma pessoa bem tranquila e responsável. Aceito Pix e dinheiro nos meus serviços. </p>
+                <p> { Router.query.description } </p>
                 <div className={styles.camposServico}>
                   <div className= {styles.campoServico}>
-                    <span>Faixa de preço: </span>
-                    <span>R$100 a R$120/dia</span>
+                    <span>Preço médio: </span>
+                    <span> { Router.query.price } </span>
                   </div>
                   <div className= {styles.campoServico}>
                     <span>Status: </span>

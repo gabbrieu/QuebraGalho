@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import axios from 'axios';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { MenuLoginCreate } from '../components/MenuLoginCreate';
-import Router from 'next/router';
 import styles from '../styles/pages/Login.module.scss';
-
-const urlLogin = 'http://localhost:3001/auth/login';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Login() {
+  /////////Autenticação/////////
+  const { signIn } = useContext(AuthContext);
+  //Dados de autenticação
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -18,31 +18,14 @@ export default function Login() {
     const newdata = { ...data };
     newdata[e.target.id] = e.target.value;
     setData(newdata);
-    console.log(newdata);
   }
 
-  async function onSubmit() {
-    event.preventDefault();
-    try {
-      const req = await axios.post(
-        urlLogin,
-        {
-          email: data.email,
-          password: data.password,
-        },
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST ',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      alert('Login efetuado com sucesso!');
-      Router.push('/');
-    } catch (e) {
-      alert(e.response.data.message);
-    }
+  function handleSignIn( { email, password }) {
+    signIn({ email, password });
+  }
+
+  function onSubmit() {
+    handleSignIn( data );
   }
 
   return (
