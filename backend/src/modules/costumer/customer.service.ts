@@ -11,6 +11,7 @@ import { AccountsService } from '../accounts/accounts.service';
 import { CreateAccountsDto } from '../accounts/dto/request/createAccounts.dto';
 import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
 import { Customer } from './customer.entity';
+import { UpdateCustomerDto } from './dto/request/updateCustomer.dto';
 
 @Injectable()
 export class CustomerService {
@@ -85,7 +86,7 @@ export class CustomerService {
   async getOne(id: string): Promise<Customer> {
     try {
       const customer = await this.repository.findOneOrFail(id, {
-        relations: ['accounts']
+        relations: ['accounts'],
       });
       delete customer.accounts.password;
       return customer;
@@ -94,7 +95,12 @@ export class CustomerService {
     }
   }
 
-  //async update(id: string, req: UpdatecustomerDto): Promise<Customer> {}
+  async update(id: string, req: UpdateCustomerDto): Promise<Customer> {
+    const customer = await this.getOne(id);
+    await this.repository.update(id, { ...req });
+    await this.accountsService.update(customer.accounts.id, req);
+    return await this.repository.findOne(id)
+  }
 
   async delete(id: string): Promise<void> {
     const customer = await this.getOne(id);

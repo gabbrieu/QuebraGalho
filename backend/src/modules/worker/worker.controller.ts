@@ -7,12 +7,14 @@ import {
   HttpStatus,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateWorkerDto } from './dto/request/createWorker.dto';
 import { GetAllFilters } from './dto/request/getAllFilters.dto';
+import { UpdateWorkerDto } from './dto/request/updateWorker.dto';
 import { GetAllWorkerResponseDto } from './dto/response/getAllResponse.dto';
 import { Worker } from './worker.entity';
 import { WorkerService } from './worker.service';
@@ -74,7 +76,6 @@ export class WorkerController {
     return await this.workerService.getOne(id);
   }
 
-  /*
   @Patch(':id')
   async update(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -82,7 +83,6 @@ export class WorkerController {
   ): Promise<Worker> {
     return this.workerService.update(id, req);
   }
-  */
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')

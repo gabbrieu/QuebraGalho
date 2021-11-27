@@ -2,7 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,6 +10,7 @@ import { TypeAccounts } from '../accounts/accounts.entity';
 import { AccountsService } from '../accounts/accounts.service';
 import { CreateWorkerDto } from './dto/request/createWorker.dto';
 import { GetAllFilters } from './dto/request/getAllFilters.dto';
+import { UpdateWorkerDto } from './dto/request/updateWorker.dto';
 import { GetAllWorkerResponseDto } from './dto/response/getAllResponse.dto';
 import { Worker } from './worker.entity';
 
@@ -97,7 +98,17 @@ export class WorkerService {
     }
   }
 
-  //async update(id: string, req: UpdateWorkerDto): Promise<Worker> {}
+  async update(id: string, req: UpdateWorkerDto): Promise<Worker> {
+    const worker = await this.getOne(id);
+    await this.repository.update(id, { ...req });
+    await this.accountsService.update(worker.accounts.id, {
+      address: req.address,
+      cellPhone: req.cellPhone,
+      cep: req.cep,
+      fullName: req.fullName,
+    });
+    return await this.repository.findOne(id);
+  }
 
   async delete(id: string): Promise<void> {
     const worker = await this.getOne(id);
