@@ -4,7 +4,6 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import { MenuLogged } from '../components/MenuLogged';
-import {ModalService } from '../components/ModalService';
 import styles from '../styles/pages/Perfilusuario.module.scss';
 
 export default function PerfilUsuario() {

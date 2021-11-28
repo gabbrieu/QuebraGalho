@@ -43,11 +43,67 @@ export default function PerfilUsuario() {
     const [cep, setCEP] = useState('');
     const [phone, setPhone] = useState('');
 
+    //Atualizar worker
+    const [updateWorker, setUpdateWorker] = useState({
+      fullName: '',
+      address: '',
+      mainProfession: '',
+      linkedin: '',
+      description: '',
+    });
+
     useEffect(() => {
+      setUpdateWorker({
+        fullName: worker?.fullName,
+        address: worker?.address,
+        mainProfession: worker?.mainProfession,
+        linkedin: worker?.linkedIn,
+        description: worker?.description,
+      });
       setCEP(worker?.cep);
       setDocument(worker?.document);
       setPhone(worker?.cellPhone);
-    }, [worker?.cep, worker?.document, worker?.cellPhone]);
+    }, [
+        worker?.cep, worker?.document, worker?.cellPhone, 
+        worker?.fullName, worker?.address, worker?.mainProfession, 
+        worker?.linkedIn, worker?.description, 
+    ]);
+
+    function handleEditProfile(e) {
+      const newUpdateWorker = { ...updateWorker };
+      newUpdateWorker[e.target.id] = e.target.value;
+      setUpdateWorker(newUpdateWorker);
+      console.log(newUpdateWorker);
+    }
+
+    async function submitEditProfile() {
+      event.preventDefault();
+      try {
+        await axios.patch(
+          urlWorker,
+          {
+            cellPhone: phone,
+            fullName: updateWorker.fullName,
+            cep: cep,
+            address: updateWorker.address,
+            description: updateWorker.description,
+            linkedIn: updateWorker.linkedin,
+            mainProfession: updateWorker.mainProfession
+          },
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'PATCH ',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        alert('Perfil atualizado!');
+      } catch (err) {
+        alert('Algo deu errado, o perfil não foi atualizado!');
+      }
+    }
 
     if(worker?.document.length === 11) {
       editDocument = <div className={styles.campoModalColumn}>
@@ -137,9 +193,17 @@ export default function PerfilUsuario() {
             <div className={!modalEditProfile ? styles.modalContent : ''}>
               <h2>Editar Perfil</h2>
               <div className={styles.camposModal}>
+              <form onSubmit={submitEditProfile}>
                 <div className={styles.campoModalColumn}>
                     <span>Nome completo*: </span>
-                    <input type="text" defaultValue={worker?.fullName} required></input>
+                    <input
+                      onChange={(e) => handleEditProfile(e)}
+                      id='fullName' 
+                      type="text" 
+                      defaultValue={worker?.fullName}
+                      value={updateWorker.fullName}
+                      required
+                    ></input>
                 </div>
                 <div className={styles.modalColumn}>
                   <div className={styles.campoModalColumn}>
@@ -168,7 +232,14 @@ export default function PerfilUsuario() {
                 <div className={styles.modalColumn}>
                   <div className={styles.campoModalColumn}>
                       <span>Endereço*: </span>
-                      <input type="text" defaultValue={worker?.address} required></input>
+                      <input
+                        onChange={(e) => handleEditProfile(e)}
+                        id='address'  
+                        type="text" 
+                        defaultValue={worker?.address}
+                        value={updateWorker.address} 
+                        required
+                      ></input>
                   </div>
                   <div className={styles.campoModalColumn}>
                       <span>CEP*: </span>
@@ -185,11 +256,23 @@ export default function PerfilUsuario() {
                 <div className={styles.modalColumn}>
                   <div className={styles.campoModalColumn}>
                       <span>Profissão principal*: </span>
-                      <input type="text" defaultValue={worker?.mainProfession} required></input>
+                      <input
+                        onChange={(e) => handleEditProfile(e)}
+                        id='mainProfession'  
+                        type="text" 
+                        defaultValue={worker?.mainProfession}
+                        value={updateWorker.mainProfession} 
+                        required></input>
                   </div>
                   <div className={styles.campoModalColumn}>
                       <span>Linkedin: </span>
-                      <input type="text" defaultValue={worker?.linkedIn}></input>
+                      <input 
+                        onChange={(e) => handleEditProfile(e)}
+                        id='linkedin' 
+                        type="text" 
+                        defaultValue={worker?.linkedIn}
+                        value={updateWorker.linkedin}
+                      ></input>
                   </div>
                 </div>
                 <div className={styles.campoModalColumn}>
@@ -202,13 +285,20 @@ export default function PerfilUsuario() {
                 </div>
                 <div className={styles.campoModalColumn}>
                     <span>Descrição*:  </span>
-                    <textarea  defaultValue={worker?.description} required></textarea>
+                    <textarea 
+                      onChange={(e) => handleEditProfile(e)}
+                      id='description'  
+                      defaultValue={worker?.description}
+                      value={updateWorker.description} 
+                      required
+                    ></textarea>
                     <span className={styles.camposObrigatorios}>* Campos obrigatorios</span>
                 </div>
                 <div className={styles.botoesModal}>
-                  <button onClick={()=>setModalEditProfile(true)}>Cancelar</button>
-                  <button onClick={()=>setModalEditProfile(true)}>Salvar</button>
+                  <button type='button' onClick={()=>setModalEditProfile(true)}>Cancelar</button>
+                  <button type='submit' onClick={()=>setModalEditProfile(true)}>Salvar</button>
                 </div>
+              </form>
               </div>
             </div>
           </div>
