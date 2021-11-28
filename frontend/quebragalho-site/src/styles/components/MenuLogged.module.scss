@@ -75,7 +75,6 @@
         span {
           text-transform: none;
           font: 700 0.875rem 'Roboto', sans-serif;
-          padding-right: 5px;
         }
 
         img {
@@ -89,6 +88,25 @@
         padding: 0;
         padding-bottom: 5px;
         border-radius: 100px;
+      }
+    }
+
+    .sairBox a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-left: 30px;
+
+      img {
+        max-width: 30px;
+        height: auto;
+        padding: 0;
+        padding-bottom: 5px;
+      }
+
+      span {
+        text-transform: none;
+        font: 700 0.875rem 'Roboto', sans-serif;
       }
     }
   }

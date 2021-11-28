@@ -31,19 +31,19 @@ export function MenuLogged(props) {
               <span> Notificações </span>
             </a>
           </div>
-          <div className={styles.boxIcon}>
-            <a href='#'>
-              <img src='icons/iconMenssagens.svg' />
-              <span> Menssagens </span>
-            </a>
-          </div>
           <div className={styles.boxIconEu}>
             <a href='#'>
               <img src= {props.imgLink} />
               <div className={styles.euLink}>
                 <span> Eu </span>
-                <img src='img/layout/dropdown.svg' />
+                {/* <img src='img/layout/dropdown.svg' /> */}
               </div>
+            </a>
+          </div>
+          <div className={styles.sairBox}>
+            <a href='/'>
+              <img src='icons/iconExit2.svg' />
+              <span> Sair </span>
             </a>
           </div>
         </div>
