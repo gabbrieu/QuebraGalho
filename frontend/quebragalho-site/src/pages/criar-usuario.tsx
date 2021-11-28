@@ -282,6 +282,7 @@ export default function Criarusuario() {
                     value={phone}
                     placeholder='Digite seu telefone de contato'
                     minLength='14'
+                    disabled={false}
                     onChange={(event) => setPhone(event.target.value)}
                   />
                 </div>
@@ -295,6 +296,7 @@ export default function Criarusuario() {
                         value={cpf}
                         placeholder='Digite seu CPF'
                         minLength='14'
+                        disabled={false}
                         onChange={(event) => setCPF(event.target.value)}
                       />
                     </>
@@ -306,6 +308,7 @@ export default function Criarusuario() {
                         value={cnpj}
                         placeholder='Digite seu CNPJ'
                         minLength='19'
+                        disabled={false}
                         onChange={(event) => setCNPJ(event.target.value)}
                       />
                     </>
@@ -318,6 +321,7 @@ export default function Criarusuario() {
                     value={cep}
                     placeholder='Digite seu CEP'
                     minLength='10'
+                    disabled={false}
                     onChange={(event) => setCEP(event.target.value)}
                   />
                 </div>

@@ -2,7 +2,7 @@ import InputMask from 'react-input-mask';
 
 const onlyNumbers = (str) => str.replace(/[^0-9]/g, '');
 
-const MaskedInput = ( {value, onChange, mask, placeholder, minLength} ) => {
+const MaskedInput = ( {value, onChange, mask, placeholder, disabled, minLength} ) => {
   function handleChange(event) {
     onChange({
       ...event,
@@ -20,6 +20,7 @@ const MaskedInput = ( {value, onChange, mask, placeholder, minLength} ) => {
       onChange={handleChange}
       placeholder={placeholder}
       minLength={minLength}
+      disabled={disabled}
       required
     />
   );
