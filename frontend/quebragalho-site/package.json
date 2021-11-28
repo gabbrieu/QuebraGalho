@@ -12,6 +12,7 @@
     "@types/react-input-mask": "^3.0.1",
     "axios": "^0.24.0",
     "next": "11.0.1",
+    "nookies": "^2.5.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-input-mask": "^2.0.4",
