@@ -220,6 +220,11 @@
       max-width: 15rem;
       margin-bottom: 2rem;
       border-radius: 10px;
+      height: 400px;
+
+      .descricaoServico{
+        height: 80px;
+      }
 
       h3 {
         text-align: center;
@@ -236,6 +241,13 @@
         padding-right: 10px;
         line-height: 25px;
         text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        
       }
 
       img {

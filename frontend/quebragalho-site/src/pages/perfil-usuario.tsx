@@ -133,10 +133,11 @@ export default function PerfilUsuario() {
                   <div className={styles.cardServico}>
                     <img src='img/content/servico.png' />
                     <h3> Serviço de Pedreiro</h3>
-                    <span>
-                      Presto serviços de pedreiro para casas e apartamentos.
-                      Valores a combinar.
-                    </span>
+                    <div className={styles.descricaoServico}>
+                      <span>
+                        Presto serviços de pedreiro para casas e apartamentos.
+                      </span>
+                    </div>
                     <div className={styles.buttonsCard}>
                       <button>
                         <span>EXIBIR DETALHES</span>
@@ -151,10 +152,12 @@ export default function PerfilUsuario() {
                   <div className={styles.cardServico}>
                     <img src='img/content/servico.png' />
                     <h3> Serviço de Pedreiro</h3>
-                    <span>
-                      Presto serviços de pedreiro para casas e apartamentos.
-                      Valores a combinar.
-                    </span>
+                    <div className={styles.descricaoServico}>
+                      <span>
+                       Presto serviços de pedreiro para casas e apartamentos.
+                        Valores a combinar.
+                      </span>
+                    </div>
                     <div className={styles.buttonsCard}>
                       <button>
                         <span>EXIBIR DETALHES</span>
@@ -169,10 +172,12 @@ export default function PerfilUsuario() {
                   <div className={styles.cardServico}>
                     <img src='img/content/servico.png' />
                     <h3> Serviço de Pedreiro</h3>
-                    <span>
-                      Presto serviços de pedreiro para casas e apartamentos.
-                      Valores a combinar.
-                    </span>
+                    <div className={styles.descricaoServico}>
+                      <span>
+                        Presto serviços de pedreiro para casas e apartamentos.
+                        Valores a combinar. Apenas um teste de escrita para ver se vai cortar
+                      </span>
+                    </div>
                     <div className={styles.buttonsCard}>
                       <button>
                         <span>EXIBIR DETALHES</span>
