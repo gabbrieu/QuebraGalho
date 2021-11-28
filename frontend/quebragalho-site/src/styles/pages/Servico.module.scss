@@ -184,6 +184,14 @@
           text-align: justify;
         }
 
+        h4 {
+          color: var(--QG300);
+          margin: 0;
+          margin-top: 2rem;
+          font-size: 1.2rem;
+          text-align: left;
+        }
+
         .notaDepoimento{
           display: flex;
           align-items: center;
@@ -197,6 +205,13 @@
 
           img{
             max-height: 22px;
+          }
+
+          button {
+            text-transform: none;
+            cursor: pointer;
+            width: 100%;
+            height: 40px;
           }
         }
       }

@@ -4,14 +4,17 @@
 import axios from 'axios';
 import Head from 'next/head';
 import Router from 'next/router';
+
 import styles from '../styles/pages/Perfilusuario.module.scss';
+
 import MaskedInput from '../utils/MaskedInput';
 
 import { parseCookies } from 'nookies'
 import { useContext, useEffect, useState } from 'react';
-import { MenuLogged } from '../components/MenuLogged';
 import { AuthContext } from '../context/AuthContext';
 import { GetServerSideProps } from 'next';
+
+import { MenuLogged } from '../components/MenuLogged';
 
 const baseUrl = 'http://localhost:3001/';
 
@@ -182,7 +185,7 @@ export default function PerfilUsuario() {
     return (
       <>
         <Head>
-          <title>Quebra Galho | Inicio</title>
+          <title>Quebra Galho | Meu Perfil</title>
           <meta name='description' content='Projeto Quebra Galho' />
           <link rel='icon' href='/favicon.ico' />
         </Head>
@@ -495,7 +498,7 @@ export default function PerfilUsuario() {
               </div>
               <div className={styles.rightSide}>
                 <section className={styles.servicosUsuario}>
-                  <h2>Contrate meus serviços</h2>
+                  <h2>Meus serviços</h2>
                   <div>
                     <ul className={styles.cardsServicos}>
                       {worker?.services.map((service) =>
@@ -503,7 +506,9 @@ export default function PerfilUsuario() {
                           <div className={styles.cardServico}>
                             <img src='img/content/servico.png' />
                             <h3> {service.name} </h3>
-                            <span> {service.description} </span>
+                            <div className={styles.descricaoServico}>
+                              <span> {service.description} </span>
+                            </div>
                             <div className={styles.buttonsCard}>
                               <button onClick= {() => { Router.push({pathname: '/servico', query: service}, '/servico') }}>
                                 <span>EXIBIR DETALHES</span>

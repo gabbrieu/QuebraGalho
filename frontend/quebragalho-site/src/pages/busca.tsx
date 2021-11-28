@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
-import { useState } from 'react';
-import { MenuLogged } from '../components/MenuLogged';
+
 import styles from '../styles/pages/Busca.module.scss';
+
+import { useState } from 'react';
+
+import { MenuLogged } from '../components/MenuLogged';
 
 export default function Busca(){
 

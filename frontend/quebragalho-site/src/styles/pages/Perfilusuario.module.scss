@@ -285,11 +285,13 @@
         }
       }
     }
+
     .cardAdicionar {
       background: linear-gradient(to left ,var(--QG300), var(--QG000));
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+      height: 400px;
       max-width: 15rem;
       margin-bottom: 2rem;
       border-radius: 10px;
@@ -299,7 +301,7 @@
       padding: 15%;
       outline: 2px dashed var(--white);
       outline-offset: -20px;
-
+  
       span {
         text-align: center;
         padding-bottom: 0.625rem;
@@ -307,7 +309,7 @@
         font: 500 2rem 'Roboto', sans-serif;
         color: var(--white);
       }
-
+  
       img {
         width: 100%;
         margin-bottom: 2em;
