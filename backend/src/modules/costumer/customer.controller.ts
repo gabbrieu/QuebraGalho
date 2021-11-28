@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import { CreateAccountsDto } from '../accounts/dto/request/createAccounts.dto';
 import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
 import { Customer } from './customer.entity';
 import { CustomerService } from './customer.service';
+import { UpdateCustomerDto } from './dto/request/updateCustomer.dto';
 
 @Controller('customer')
 @ApiTags('Customer')
@@ -73,15 +75,14 @@ export class CustomerController {
     return await this.customerService.getOne(id);
   }
 
-  /*
   @Patch(':id')
+  @ApiOperation({ summary: 'Endpoint para atualização de um cliente por ID' })
   async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() req: UpdateCustomerDto,
   ): Promise<Customer> {
     return this.customerService.update(id, req);
   }
-  */
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
