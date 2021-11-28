@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
-import { MenuLogged } from '../components/MenuLogged';
+
 import styles from '../styles/pages/Notificacoes.module.scss';
+
+import { MenuLogged } from '../components/MenuLogged';
 
 export default function Notificacoes(){
 return(

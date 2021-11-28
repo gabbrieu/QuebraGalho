@@ -2,9 +2,12 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
-import { useState } from 'react';
-import { MenuLogged } from '../components/MenuLogged';
+
 import styles from '../styles/pages/Perfilusuario.module.scss';
+
+import { useState } from 'react';
+
+import { MenuLogged } from '../components/MenuLogged';
 
 export default function PerfilUsuario() {
   const [hiddenModal, setHiddenModal] = useState(true); 
@@ -12,7 +15,7 @@ export default function PerfilUsuario() {
   return (
     <>
       <Head>
-        <title>Quebra Galho | Inicio</title>
+        <title>Quebra Galho | Perfil</title>
         <meta name='description' content='Projeto Quebra Galho' />
         <link rel='icon' href='/favicon.ico' />
       </Head>

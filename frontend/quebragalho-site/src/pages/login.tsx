@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import { MenuLoginCreate } from '../components/MenuLoginCreate';
 import styles from '../styles/pages/Login.module.scss';
 import { AuthContext } from '../context/AuthContext';
+import Head from 'next/head'
 
 export default function Login() {
   /////////Autenticação/////////
@@ -29,48 +30,56 @@ export default function Login() {
   }
 
   return (
-    <div className={styles.conteudoPageLogin}>
-      <div className={styles.loginSection}>
-        <MenuLoginCreate />
-        <div className={styles.loginBox}>
-          <h1>Login</h1>
-          <span>
-            Entre em sua conta para contratar um profissional ou oferecer seus
-            serviços.
-          </span>
-          <form onSubmit={onSubmit}>
-            <label> E-mail </label>
-            <input
-              onChange={(e) => handle(e)}
-              id='email'
-              value={data.email}
-              placeholder='Digite seu e-mail'
-              required
-              type='email'
-            />
-            <label> Senha </label>
-            <input
-              onChange={(e) => handle(e)}
-              id='password'
-              value={data.password}
-              placeholder='Digite sua senha'
-              required
-              type='password'
-            />
-            <button type='submit'>Login</button>
+    <>
+      <Head>
+        <title>Quebra Galho | Login</title>
+        <meta name='description' content='Projeto Quebra Galho' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+
+      <div className={styles.conteudoPageLogin}>
+        <div className={styles.loginSection}>
+          <MenuLoginCreate />
+          <div className={styles.loginBox}>
+            <h1>Login</h1>
             <span>
-              Não é registrado?{' '}
-              <Link href='/criar-usuario'>
-                <a>Crie uma conta</a>
-              </Link>
+              Entre em sua conta para contratar um profissional ou oferecer seus
+              serviços.
             </span>
-          </form>
+            <form onSubmit={onSubmit}>
+              <label> E-mail </label>
+              <input
+                onChange={(e) => handle(e)}
+                id='email'
+                value={data.email}
+                placeholder='Digite seu e-mail'
+                required
+                type='email'
+              />
+              <label> Senha </label>
+              <input
+                onChange={(e) => handle(e)}
+                id='password'
+                value={data.password}
+                placeholder='Digite sua senha'
+                required
+                type='password'
+              />
+              <button type='submit'>Login</button>
+              <span>
+                Não é registrado?{' '}
+                <Link href='/criar-usuario'>
+                  <a>Crie uma conta</a>
+                </Link>
+              </span>
+            </form>
+          </div>
+        </div>
+        <div className={styles.imagemSection}>
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          <img src='img/layout/imglogin.svg' />
         </div>
       </div>
-      <div className={styles.imagemSection}>
-        {/* eslint-disable-next-line jsx-a11y/alt-text */}
-        <img src='img/layout/imglogin.svg' />
-      </div>
-    </div>
+    </>
   );
 }

@@ -1,14 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
 import Router from 'next/router';
-import { MenuLogged } from '../components/MenuLogged';
+
 import styles from '../styles/pages/Servico.module.scss';
+
+import { MenuLogged } from '../components/MenuLogged';
 
 export default function Servico(){
 return(
   <>
     <Head>
-        <title>Quebra Galho | Serviços</title>
+        <title>Quebra Galho | Serviço</title>
         <meta name='description' content='Projeto Quebra Galho' />
         <link rel='icon' href='/favicon.ico' />
     </Head>

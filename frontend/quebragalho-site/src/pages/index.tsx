@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
+
+import styles from '../styles/pages/Home.module.scss';
+
 import { MenuHomePage } from '../components/MenuHomePage';
 import { Rodape } from '../components/Rodape';
-import styles from '../styles/pages/Home.module.scss';
 
 export default function Home() {
   return (
