@@ -1,6 +1,6 @@
 import axios from "axios";
 import Router from "next/router";
-import { setCookie, parseCookies } from "nookies";
+import { setCookie, parseCookies, destroyCookie } from "nookies";
 import { createContext, useEffect, useState } from "react";
 
 const urlSignIn = 'http://localhost:3001/auth/login';
@@ -10,6 +10,7 @@ type AuthContextType = {
     userAuth;
     isAuthenticated: boolean;
     signIn: (data: { email, password }) => Promise<void>
+    signOut: () => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextType)
@@ -78,8 +79,13 @@ export function AuthProvider({ children }) {
         }
     }
 
+    async function signOut() {
+        destroyCookie({}, 'tokenQuebraGalho');
+        alert('Saindo...');
+    }
+
     return (
-        <AuthContext.Provider value = {{ userAuth, isAuthenticated, signIn }}>
+        <AuthContext.Provider value = {{ userAuth, isAuthenticated, signIn, signOut }}>
             { children }
         </AuthContext.Provider>
     )

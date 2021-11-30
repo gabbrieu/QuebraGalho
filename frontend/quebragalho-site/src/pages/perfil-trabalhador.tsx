@@ -19,7 +19,7 @@ export default function PerfilUsuario() {
         <meta name='description' content='Projeto Quebra Galho' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <MenuLogged imgLink="img/layout/imgMenuPerfil.svg"/>
+      <MenuLogged />
 
       <main>
         <div hidden={hiddenModal} className={!hiddenModal ? styles.modalBackground : ''}>

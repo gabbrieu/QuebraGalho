@@ -53,6 +53,7 @@ export default function PerfilUsuario() {
       mainProfession: '',
       linkedin: '',
       description: '',
+      photoUrl: '',
     });
 
     useEffect(() => {
@@ -62,6 +63,7 @@ export default function PerfilUsuario() {
         mainProfession: worker?.mainProfession,
         linkedin: worker?.linkedIn,
         description: worker?.description,
+        photoUrl: worker?.photoUrl
       });
       setCEP(worker?.cep);
       setDocument(worker?.document);
@@ -69,7 +71,7 @@ export default function PerfilUsuario() {
     }, [
         worker?.cep, worker?.document, worker?.cellPhone, 
         worker?.fullName, worker?.address, worker?.mainProfession, 
-        worker?.linkedIn, worker?.description, 
+        worker?.linkedIn, worker?.description, worker?.photoUrl
     ]);
 
     function handleEditProfile(e) {
@@ -91,7 +93,8 @@ export default function PerfilUsuario() {
             address: updateWorker.address,
             description: updateWorker.description,
             linkedIn: updateWorker.linkedin,
-            mainProfession: updateWorker.mainProfession
+            mainProfession: updateWorker.mainProfession,
+            photoUrl: updateWorker.photoUrl
           },
           {
             headers: {
@@ -189,7 +192,7 @@ export default function PerfilUsuario() {
           <meta name='description' content='Projeto Quebra Galho' />
           <link rel='icon' href='/favicon.ico' />
         </Head>
-        <MenuLogged imgLink="img/content/fotoPerfil.png" />
+        <MenuLogged />
 
         <main>
           <div hidden={modalEditProfile} className={!modalEditProfile ? styles.modalBackground : ''}>
@@ -339,16 +342,23 @@ export default function PerfilUsuario() {
             <div className={!modalEditPhotos ? styles.modalContent : ''}>
                 <h2>Editar fotos</h2>
                 <div className={styles.camposModal}>
-                  <div className={styles.botoesModalPhotos}>
-                    <button>Escolher nova foto de perfil</button>
-                    <button>Escolher nova foto de capa</button>
+                <form onSubmit={submitEditProfile}>
+                  <div className={styles.campoModalColumn}>
+                      <span>URL para a foto de perfil: </span>
+                      <input 
+                        onChange={(e) => handleEditProfile(e)} 
+                        type="text" id="photoUrl" 
+                        value={updateWorker.photoUrl} 
+                        required
+                      ></input>
                   </div>
                   <div className={styles.campoModalColumn}> 
                     <div className={styles.botoesModal}>
-                      <button onClick={()=>setModalEditPhotos(true)}>Cancelar</button>
-                      <button onClick={()=>setModalEditPhotos(true)}>Salvar</button>
+                      <button type="button" onClick={()=>setModalEditPhotos(true)}>Cancelar</button>
+                      <button type="submit" onClick={()=>setModalEditPhotos(true)}>Salvar</button>
                     </div>
                   </div>
+                </form>
                 </div>
             </div>
           </div>
@@ -419,7 +429,7 @@ export default function PerfilUsuario() {
                     <span className={styles.camposObrigatorios}>* Campos obrigatorios</span>
                 </div>
                 <div className={styles.botoesModal}>
-                  <button onClick={()=>setmodalCreateService(true)}>Cancelar</button>
+                  <button type="button" onClick={()=>setmodalCreateService(true)}>Cancelar</button>
                   <button type="submit">Criar</button>
                 </div>
                 </form>
@@ -437,7 +447,7 @@ export default function PerfilUsuario() {
                         <img src='img/content/capaPerfil.png' />
                       </div>
                       <div className={styles.fotoPerfil}>
-                          <img src='img/content/fotoPerfil.png' />
+                          <img src={worker?.photoUrl} />
                       </div>
                       <div className={styles.editarIcon}>
                           <button onClick={()=> setModalEditPhotos(false)}><img src='icons/iconEditar.svg' /></button>

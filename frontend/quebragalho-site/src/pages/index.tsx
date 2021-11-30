@@ -6,8 +6,26 @@ import styles from '../styles/pages/Home.module.scss';
 
 import { MenuHomePage } from '../components/MenuHomePage';
 import { Rodape } from '../components/Rodape';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { MenuLogged } from '../components/MenuLogged';
 
 export default function Home() {
+  const { userAuth, isAuthenticated } = useContext(AuthContext);
+
+  var navMenu;
+  var criarConta;
+
+  if( userAuth === null ){
+    navMenu = <MenuHomePage />
+    criarConta = <a href='/criar-usuario'>
+      <button>criar conta</button>
+    </a>
+  } else {
+    navMenu = <MenuLogged />
+    criarConta = null
+  }
+
   return (
     <>
       <Head>
@@ -15,7 +33,7 @@ export default function Home() {
         <meta name='description' content='Projeto Quebra Galho' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <MenuHomePage />
+      {navMenu}
 
       <main>
         <section className={styles.contrateProfissionalBg}>
@@ -26,9 +44,7 @@ export default function Home() {
                 Encontre os melhores profissionais e que estejam mais próximos
                 de você.
               </span>
-              <a href='/criar-usuario'>
-                <button>criar conta</button>
-              </a>
+              {criarConta}
             </div>
             <div className={styles.imgProfissional}>
               <img src='img/layout/imgprofissional.svg' />
@@ -46,9 +62,7 @@ export default function Home() {
                 Crie uma conta na nossa plataforma e divulgue seu trabalho para
                 que outras pessoas possam contratá-lo!
               </span>
-              <a href='/criar-usuario'>
-                <button>criar conta</button>
-              </a>
+              {criarConta}
             </div>
           </div>
         </section>

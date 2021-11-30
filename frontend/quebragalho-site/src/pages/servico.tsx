@@ -4,9 +4,22 @@ import Router from 'next/router';
 
 import styles from '../styles/pages/Servico.module.scss';
 
+import { MenuHomePage } from '../components/MenuHomePage';
 import { MenuLogged } from '../components/MenuLogged';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Servico(){
+  const { userAuth, isAuthenticated } = useContext(AuthContext);
+
+  var navMenu;
+
+  if( !isAuthenticated ){
+    navMenu = <MenuHomePage />
+  } else {
+    navMenu = <MenuLogged />
+  }
+
 return(
   <>
     <Head>
@@ -14,7 +27,7 @@ return(
         <meta name='description' content='Projeto Quebra Galho' />
         <link rel='icon' href='/favicon.ico' />
     </Head>
-    <MenuLogged imgLink="img/layout/imgMenuPerfil.svg"/>
+    <MenuLogged />
     <main>
       <div className={styles.background}>
         <div className={styles.container}>
