@@ -10,7 +10,7 @@ export class GetAllFilters {
   @IsOptional()
   @Max(50)
   @Min(0)
-  take?: number = 10;
+  take?: number;
 
   @ApiPropertyOptional({
     description: 'Quantidade de registros a serem ignorados',
