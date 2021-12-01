@@ -77,6 +77,15 @@ export class WorkerController {
   }
 
   @Patch(':id')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Trabalhador atualizado com sucesso',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Aconteceu algum erro',
+  })
+  @ApiOperation({ summary: 'Endpoint de atualização de um trabalhador' })
   async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() req: UpdateWorkerDto,
