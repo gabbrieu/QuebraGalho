@@ -1,0 +1,106 @@
+.background {
+  background: var(--grey000);
+  min-height: calc(100vh - 76px);
+}
+
+.container {
+  max-width: 992px;
+  margin: 0 auto;
+  gap: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.conteudo{
+  width: 100%;
+  max-width: 750px;
+
+  h2{
+    font: 700 'Roboto', sans-serif;
+    font-size: 1.625rem!important;
+    color: var(--QG300);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    text-align: center;
+  }
+
+  .boxNotificacoes{
+    background: var(--white);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 5px 15px -5px rgba(0, 0, 0, 0.25);
+
+    .notificacao{
+      display: flex;
+      height: 160px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      align-items: center;
+      border-bottom: 1px solid var(--grey100);
+
+      .fotoPerfil{
+        padding-right: 0.5rem;
+
+        img{
+          max-width: 82px;
+          border-radius: 100%;
+        }
+        .conteudoNotificacao{
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+    }
+    .tituloNotificacao{
+      max-width: 450px;
+      color: var(--QG300);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+
+      .negrito{
+        font-weight: 700;
+      }
+    }
+
+    .descricaoNotificacao{
+      max-width: 450px;
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 23px;
+
+      span{
+        color: var(--black);
+        font-weight: 300;
+        font-style: italic;
+      }
+    }
+
+    .tempoNotificacao{
+      max-width: 450px;
+      span{
+        color: var(--QG300);
+        font-weight: 700;
+      }
+    }
+
+    .notaNotificacao{
+      padding-bottom: 0.3rem;
+      img{
+        height: 22px;
+      }
+    }
+  }
+}
+

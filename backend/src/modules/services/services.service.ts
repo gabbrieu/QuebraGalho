@@ -4,10 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { GetAllFilters } from '../accounts/worker/dto/request/getAllFilters.dto';
-import { WorkerService } from '../accounts/worker/worker.service';
+import { FindManyOptions, ILike, Repository } from 'typeorm';
+import { GetAllFilters } from '../worker/dto/request/getAllFilters.dto';
+import { WorkerService } from '../worker/worker.service';
 import { CreateServiceDto } from './dto/request/createService.dto';
+import { UpdateServiceDto } from './dto/request/updateService.dto';
 import { Service } from './services.entity';
 
 @Injectable()
@@ -33,32 +34,33 @@ export class ServicesService {
     });
   }
 
-  async getAll(filters: GetAllFilters) {
-    let query = this.repository
-      .createQueryBuilder('service')
-      .select('service.id', 'id')
-      .addSelect('service.name', 'name')
-      .addSelect('service.status', 'status')
-      .addSelect('service.description', 'description')
-      .addSelect('service.price', 'price')
-      .addSelect('service.workerId', 'workerId')
-      .take(filters.take)
-      .skip(filters.skip);
-
-    if (filters.status) {
-      query.where('status = :status', { status: filters.status });
-    } else {
-      query.where('status = :status', { status: true });
-    }
+  async getAll(
+    filters: GetAllFilters,
+  ): Promise<{ data: Service[]; count: number }> {
+    const conditions: FindManyOptions<Service> = {
+      take: filters.take,
+      skip: filters.skip,
+    };
 
     if (filters.name) {
-      query.andWhere(`name ILIKE :name`, { name: `%${filters.name}%` });
+      conditions.where = { name: ILike(`%${filters.name}%`) };
     }
 
-    const [data, count] = await Promise.all([
-      query.clone().getRawMany(),
-      query.clone().getCount(),
-    ]);
+    if (filters.status) {
+      conditions.where = {
+        status: filters.status,
+        ...(conditions.where as object),
+      };
+    } else {
+      conditions.where = { status: true, ...(conditions.where as object) };
+    }
+
+    const [data, count] = await this.repository.findAndCount({
+      ...conditions,
+      relations: ['worker'],
+    });
+
+    console.log(conditions);
 
     return {
       data,
@@ -71,12 +73,20 @@ export class ServicesService {
       const service = await this.repository.findOneOrFail(id, {
         relations: ['worker'],
       });
-      delete service.worker.password;
 
       return service;
     } catch (error) {
       throw new NotFoundException('Serviço não encontrado');
     }
+  }
+
+  async update(id: string, req: UpdateServiceDto): Promise<Service> {
+    let service = await this.getOne(id);
+    service.description = req.description;
+    service.name = req.name;
+    service.price = req.price;
+
+    return await this.repository.save(service);
   }
 
   async delete(id: string): Promise<void> {

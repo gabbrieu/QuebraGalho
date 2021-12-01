@@ -5,19 +5,21 @@
 }
 
 :root {
-  --QGPrimary: #3C5399;
-  --QG000: #A5B8F0;
-  --QG100: #5C81ED;
-  --QG200: #4965BA;
+  --QGPrimary: #3c5399;
+  --QG000: #a5b8f0;
+  --QG100: #5c81ed;
+  --QG200: #4965ba;
   --QG300: #283766;
-  --QG400: #4C546E;
-  --white: #FFFFFF;
-  --black: #2F3032;
-  --grey000: #F2F2F2;
-  --grey100: #D3D3D3;
-  --grey200: #A4A4A4;
-  --yellow: #FFD037;
-  --green: #00B728;
+  --QG400: #4c546e;
+  --white: #ffffff;
+  --black: #2f3032;
+  --grey000: #f2f2f2;
+  --grey100: #d3d3d3;
+  --grey200: #a4a4a4;
+  --yellow: #ffd037;
+  --green: #00b728;
+  --red: #f02849;
+
 }
 
 html,
@@ -35,7 +37,7 @@ ul {
   list-style-type: none;
 }
 
-button{
+button {
   border-radius: 20px;
   text-transform: uppercase;
   background: var(--QG300);
@@ -45,17 +47,14 @@ button{
   letter-spacing: 0.8px;
   font: 700 1rem 'Roboto', sans-serif;
   filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
-
 }
 
-button:hover{
-
+button:hover {
   opacity: 0.9;
   transition: 0.2s;
-  
 }
 
-h1{
+h1 {
   font-size: 3.1rem;
   line-height: 3.75rem;
 }
