@@ -70,7 +70,9 @@ export class ServicesService {
 
   async getOne(id: string): Promise<Service> {
     try {
-      const service = await this.repository.findOneOrFail(id);
+      const service = await this.repository.findOneOrFail(id, {
+        relations: ['worker'],
+      });
 
       return service;
     } catch (error) {

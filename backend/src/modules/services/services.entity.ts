@@ -11,9 +11,11 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Contract } from '../contract/contract.entity';
 import { Worker } from '../worker/worker.entity';
 
 @Entity()
@@ -50,6 +52,9 @@ export class Service {
   @IsUUID()
   @ManyToOne(() => Worker, (worker) => worker.services)
   worker: Worker;
+
+  @OneToMany(() => Contract, (contract) => contract.service)
+  contracts: Contract[];
 
   @CreateDateColumn({
     type: 'timestamp',

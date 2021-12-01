@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUrl } from 'class-validator';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { Accounts } from '../accounts/accounts.entity';
 import { BaseAccounts } from '../accounts/baseAccounts.entity';
+import { Contract } from '../contract/contract.entity';
 
 @Entity()
 export class Customer extends BaseAccounts {
@@ -16,4 +17,7 @@ export class Customer extends BaseAccounts {
   @Column({ nullable: true })
   @IsUrl()
   photoUrl: string;
+
+  @OneToMany(() => Contract, (contract) => contract.customer)
+  contracts: Contract[];
 }
