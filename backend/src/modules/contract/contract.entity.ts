@@ -1,10 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsBoolean,
-  IsDate,
+  IsDateString,
   IsNumber,
   IsOptional,
   IsString,
+  Max,
+  Min,
 } from 'class-validator';
 import {
   Column,
@@ -28,14 +30,14 @@ export class Contract {
   price: number;
 
   @Column({ type: 'date' })
-  @IsDate()
+  @IsDateString()
   @ApiProperty({ description: 'Data de início do contrato' })
-  startDate: Date;
+  startDate: string;
 
-  @Column({ type: 'date' })
-  @IsDate()
-  @ApiProperty({ description: 'Data de término do contrato' })
-  endDate: Date;
+  @Column({ type: 'date', nullable: true })
+  @IsDateString()
+  @ApiPropertyOptional({ description: 'Data de término do contrato' })
+  endDate?: string;
 
   @Column({ type: 'text' })
   @IsString()
@@ -46,6 +48,8 @@ export class Contract {
   @IsNumber()
   @IsOptional()
   @ApiPropertyOptional({ description: 'Nota da avaliação do trabalhador' })
+  @Min(1)
+  @Max(5)
   ratingWorker?: number;
 
   @Column({ nullable: true })
@@ -60,6 +64,8 @@ export class Contract {
   @IsNumber()
   @IsOptional()
   @ApiPropertyOptional({ description: 'Nota da avaliação do cliente' })
+  @Min(1)
+  @Max(5)
   ratingCustomer?: number;
 
   @Column({ nullable: true })

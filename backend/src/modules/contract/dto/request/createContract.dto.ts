@@ -1,13 +1,18 @@
-import { PickType } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
+import { IsUUID } from 'class-validator';
 import { Contract } from '../../contract.entity';
 
 export class CreateContractDto extends PickType(Contract, [
   'price',
-  'ratingCustomer',
-  'ratingWorker',
   'startDate',
   'endDate',
   'descriptionService',
-  'textRatingWorker',
-  'textRatingCustomer',
-]) {}
+]) {
+  @IsUUID()
+  @ApiProperty({ description: 'Id de um serviço' })
+  serviceId: string;
+
+  @IsUUID()
+  @ApiProperty({ description: 'Id de um cliente' })
+  customerId: string;
+}

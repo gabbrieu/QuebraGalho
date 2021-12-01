@@ -6,4 +6,5 @@ export class UpdateCustomerDto extends PickType(Customer, [
   'cellPhone',
   'address',
   'cep',
+  'photoUrl',
 ]) {}
