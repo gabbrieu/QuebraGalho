@@ -5,12 +5,53 @@ import Head from 'next/head';
 
 import styles from '../styles/pages/Perfilusuario.module.scss';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { MenuLogged } from '../components/MenuLogged';
+import Router from 'next/router';
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 
 export default function PerfilUsuario() {
-  const [hiddenModal, setHiddenModal] = useState(true); 
+  const [hiddenModal, setHiddenModal] = useState(true);
+  
+  const baseUrl = 'http://localhost:3001/';
+  const urlWorker = baseUrl + 'worker/' + Router.query.id;
+
+  /////////Worker/////////
+  const [worker, setWorker] = useState(null);
+
+  useEffect(()=>{
+    axios.get(urlWorker)
+      .then((response) => setWorker(response.data))
+      .catch((err) => {
+        console.error("Erro! " + err);
+      })
+  }, [urlWorker]);
+
+    //Mostrar cards service
+  function cardService (service) {
+    if( service.status === true ) {
+      return <div className={styles.cardServico}>
+        <img src='img/content/servico.png' />
+        <h3> {service.name} </h3>
+        <div className={styles.descricaoServico}>
+          <span> {service.description} </span>
+        </div>
+        <div className={styles.buttonsCard}>
+        <button onClick={() => {Router.push({pathname: '/servico', query: service})}}>
+            <span>EXIBIR DETALHES</span>
+            <img src='icons/iconPlus.svg' />
+          </button>
+          <button onClick={() => {Router.push({pathname: '/servico', query: service})}}>
+            <span>COMBINAR SERVIÇO</span>
+            <img src='icons/iconCombinarButton.svg' />
+          </button>
+        </div>
+      </div>
+    }
+  }
 
   return (
     <>
@@ -22,43 +63,6 @@ export default function PerfilUsuario() {
       <MenuLogged />
 
       <main>
-        <div hidden={hiddenModal} className={!hiddenModal ? styles.modalBackground : ''}>
-          <div className={!hiddenModal ? styles.modalContent : ''}>
-            <h2>Solicitar Serviço</h2>
-            <div className={styles.camposModal}>
-              <div className={styles.campoModalRow}>
-                  <span>Serviço Solicitado: </span>
-                  <span>Serviço de Pintor </span>
-              </div>
-              <div className={styles.campoModalRow}>
-                  <span>Nome do Cliente: </span>
-                  <span>Luiz Ricardo </span>
-              </div>
-              <div className={styles.campoModalRow}>
-                  <span>Nome do Profissional: </span>
-                  <span>José Luis</span>
-              </div>
-              <div className={styles.campoModalColumn}>
-                  <span>Datas e horas disponíveis para realização do serviço*: </span>
-                  <input type="text" placeholder="Digite suas preferencias de data para realização do serviço" required></input>
-              </div>
-              <div className={styles.campoModalColumn}>
-                  <span>Endereço em que o serviço deve ser realizado*: </span>
-                  <input type="text" placeholder="Digite o endereço em que o serviço deve ser realizado" required></input>
-              </div>
-              <div className={styles.campoModalColumn}>
-                  <span>Descrição do pedido de serviço*:  </span>
-                  <textarea  placeholder="Descreva o mais detalhado possível sobre o serviço que deseja solicitar. Ex: Gostaria de contratar um pintor para pintar meu quarto de 20 metros quadrados. As tintas para a pintura já foram compradas." required></textarea>
-                  <span className={styles.camposObrigatorios}>* Campos obrigatorios</span>
-              </div>
-              <div className={styles.botoesModal}>
-                <button onClick={()=>setHiddenModal(true)}>Cancelar</button>
-                <button onClick={()=>setHiddenModal(true)}>Solicitar</button>
-              </div>
-            </div>
-          </div>
-          
-        </div>
         <div className={styles.background}>
           <div className={styles.container}>
             <div className={styles.leftSide}>
@@ -69,128 +73,51 @@ export default function PerfilUsuario() {
                       <img src='img/content/capaPerfil.png' />
                     </div>
                     <div className={styles.fotoPerfil}>
-                     <img src='img/content/fotoPerfil.png' />
+                     <img src={worker?.photoUrl} />
                     </div>
                   </div>
-                  <h1>José Luis</h1>
-                  <span>Pedreiro | Carpinteiro | Pintor </span>
-                  <img src='img/content/staricon.svg' />
+                  <h1>{worker?.fullName}</h1>
+                  <span>{worker?.mainProfession} </span>
                   <p>
-                    Trabalho como pedreiro há mais de 20 anos, sou bem
-                    caprichoso e tenho preços muito acessíveis. Sou uma pessoa
-                    bem tranquila e responsável. Aceito Pix e dinheiro nos meus
-                    serviços.
+                    {worker?.description}
                   </p>
                 </div>
                 <div className={styles.informacoesAdicionais}>
                   <h3>Informações Adicionais</h3>
                   <div className={styles.informacaoAdicional}>
                     <span>Telefone: </span>
-                    <span>(99)99999-9999</span>
+                    <span>{worker?.cellPhone}</span>
                   </div>
                   <div className={styles.informacaoAdicional}>
                     <span>E-mail: </span>
-                    <span>joseluizpedreiro@gmail.com</span>
+                    <span>{worker?.accounts.email}</span>
                   </div>
                   <div className={styles.informacaoAdicional}>
-                    <span>Cidade: </span>
-                    <span>Itabira - MG</span>
+                    <span>Endereço: </span>
+                    <span>{worker?.address}</span>
                   </div>
                   <div className={styles.informacaoAdicional}>
                     <span>Profissão Principal: </span>
-                    <span>Pedreiro</span>
-                  </div>
-                  <div className={styles.informacaoAdicional}>
-                    <span>Faço também trabalhos de: </span>
-                    <span>Carpinteiro, Pintor</span>
+                    <span>{worker?.mainProfession}</span>
                   </div>
                   <div className={styles.informacaoAdicional}>
                     <span>Linkedin: </span>
-                    <span>https://www.linkedin.com/joseluispedreiro</span>
+                    <span>{worker?.linkedIn}</span>
                   </div>
-                  <div className={styles.informacaoAdicional}>
-                    <span>Status: </span>
-                    <span className={styles.verdeStatus}>
-                      Disponível para trabalho
-                    </span>
-                  </div>
-                </div>
-              </section>
-              <section className={styles.numerosPlataforma}>
-                <h3> Números na plataforma </h3>
-                <div className={styles.numeroPlataforma}>
-                  <span>Serviços realizados: </span>
-                  <span>20</span>
-                </div>
-                <div className={styles.numeroPlataforma}>
-                  <span>Nota média dos serviços prestados: </span>
-                  <span>4.0/5</span>
                 </div>
               </section>
             </div>
             <div className={styles.rightSide}>
               <section className={styles.servicosUsuario}>
                 <h2>Contrate meus serviços</h2>
-                <div className={styles.cardsServicos}>
-                  <div className={styles.cardServico}>
-                    <img src='img/content/servico.png' />
-                    <h3> Serviço de Pedreiro</h3>
-                    <div className={styles.descricaoServico}>
-                      <span>
-                        Presto serviços de pedreiro para casas e apartamentos.
-                      </span>
-                    </div>
-                    <div className={styles.buttonsCard}>
-                      <button>
-                        <span>EXIBIR DETALHES</span>
-                        <img src='icons/iconPlus.svg' />
-                      </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
-                      </button>
-                    </div>
-                  </div>
-                  <div className={styles.cardServico}>
-                    <img src='img/content/servico.png' />
-                    <h3> Serviço de Pedreiro</h3>
-                    <div className={styles.descricaoServico}>
-                      <span>
-                       Presto serviços de pedreiro para casas e apartamentos.
-                        Valores a combinar.
-                      </span>
-                    </div>
-                    <div className={styles.buttonsCard}>
-                      <button>
-                        <span>EXIBIR DETALHES</span>
-                        <img src='icons/iconPlus.svg' />
-                      </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
-                      </button>
-                    </div>
-                  </div>
-                  <div className={styles.cardServico}>
-                    <img src='img/content/servico.png' />
-                    <h3> Serviço de Pedreiro</h3>
-                    <div className={styles.descricaoServico}>
-                      <span>
-                        Presto serviços de pedreiro para casas e apartamentos.
-                        Valores a combinar. Apenas um teste de escrita para ver se vai cortar
-                      </span>
-                    </div>
-                    <div className={styles.buttonsCard}>
-                      <button>
-                        <span>EXIBIR DETALHES</span>
-                        <img src='icons/iconPlus.svg' />
-                      </button>
-                      <button onClick={()=> setHiddenModal(false)}>
-                        <span>COMBINAR SERVIÇO</span>
-                        <img src='icons/iconCombinarButton.svg' />
-                      </button>
-                    </div>
-                  </div>
+                <div>
+                  <ul className={styles.cardsServicos}>
+                    {worker?.services.map((service) =>
+                      <li key={service.id}>
+                        {cardService(service)}
+                      </li>
+                    )}
+                  </ul>
                 </div>
               </section>
             </div>
@@ -199,4 +126,21 @@ export default function PerfilUsuario() {
       </main>
     </>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['tokenQuebraGalho']: token } = parseCookies(ctx);
+
+  if(!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
+
+  return{
+    props: {}
+  }
 }

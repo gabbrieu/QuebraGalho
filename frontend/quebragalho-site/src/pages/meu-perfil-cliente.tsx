@@ -31,42 +31,41 @@ export default function PerfilUsuario() {
     var editDocument;
     //Recuperando informações do customer - get
     const urlCustomer = baseUrl + 'customer/' + userAuth?.customerId;
-  
+
     useEffect(()=>{
-        axios.get(urlCustomer)
-          .then((response) => setCustomer(response.data))
-          .catch((err) => {
-            console.error("Vish! " + err);
-          })
-    });
+      axios.get(urlCustomer)
+        .then((response) => setCustomer(response.data))
+        .catch((err) => {
+          console.error("Erro: " + err);
+        })
+  }, [urlCustomer]);
   
     const [document, setDocument] = useState('');
     const [cep, setCEP] = useState('');
     const [phone, setPhone] = useState('');
     //Atualizar customer
-    const [updateCustomer, setUpdateCustomer] = useState({
+    const [editCustomer, setEditCustomer] = useState({
       fullName: '',
       address: '',
+      photoUrl: '',
     });
 
     useEffect(() => {
-      setUpdateCustomer({
+      setEditCustomer({
         fullName: customer?.fullName,
         address: customer?.address,
+        photoUrl: customer?.photoUrl,
       });
       setCEP(customer?.cep);
       setDocument(customer?.document);
       setPhone(customer?.cellPhone);
-    }, [
-        customer?.cep, customer?.document, customer?.cellPhone, 
-        customer?.fullName, customer?.address,
-    ]);
+    }, [customer?.cep, customer?.document, customer?.cellPhone, customer?.fullName, customer?.address, customer?.photoUrl]);
 
     function handleEditProfile(e) {
-      const newUpdateCustomer = { ...updateCustomer };
-      newUpdateCustomer[e.target.id] = e.target.value;
-      setUpdateCustomer(newUpdateCustomer);
-      console.log(newUpdateCustomer);
+      const newEditCustomer = { ...editCustomer };
+      newEditCustomer[e.target.id] = e.target.value;
+      setEditCustomer(newEditCustomer);
+      console.log(newEditCustomer);
     }
 
     async function submitEditProfile() {
@@ -76,9 +75,10 @@ export default function PerfilUsuario() {
           urlCustomer,
           {
             cellPhone: phone,
-            fullName: updateCustomer.fullName,
+            fullName: editCustomer.fullName,
             cep: cep,
-            address: updateCustomer.address,
+            address: editCustomer.address,
+            photoUrl: editCustomer.photoUrl,
           },
           {
             headers: {
@@ -128,7 +128,7 @@ export default function PerfilUsuario() {
           <meta name='description' content='Projeto Quebra Galho' />
           <link rel='icon' href='/favicon.ico' />
         </Head>
-        <MenuLogged imgLink="img/content/fotoPerfil.png" />
+        <MenuLogged />
 
         <main>
           <div hidden={modalEditProfile} className={!modalEditProfile ? styles.modalBackground : ''}>
@@ -143,7 +143,7 @@ export default function PerfilUsuario() {
                       id='fullName' 
                       type="text" 
                       defaultValue={customer?.fullName}
-                      value={updateCustomer.fullName}
+                      value={editCustomer.fullName}
                       required
                     ></input>
                 </div>
@@ -179,7 +179,7 @@ export default function PerfilUsuario() {
                         id='address'  
                         type="text" 
                         defaultValue={customer?.address}
-                        value={updateCustomer.address} 
+                        value={editCustomer.address} 
                         required
                       ></input>
                   </div>
@@ -208,16 +208,23 @@ export default function PerfilUsuario() {
             <div className={!modalEditPhotos ? styles.modalContent : ''}>
                 <h2>Editar fotos</h2>
                 <div className={styles.camposModal}>
-                  <div className={styles.botoesModalPhotos}>
-                    <button>Escolher nova foto de perfil</button>
-                    <button>Escolher nova foto de capa</button>
+                <form onSubmit={submitEditProfile}>
+                  <div className={styles.campoModalColumn}>
+                      <span>URL para a foto de perfil: </span>
+                      <input 
+                        onChange={(e) => handleEditProfile(e)} 
+                        type="text" id="photoUrl" 
+                        value={editCustomer.photoUrl} 
+                        required
+                      ></input>
                   </div>
                   <div className={styles.campoModalColumn}> 
                     <div className={styles.botoesModal}>
-                      <button onClick={()=>setModalEditPhotos(true)}>Cancelar</button>
-                      <button onClick={()=>setModalEditPhotos(true)}>Salvar</button>
+                      <button type="button" onClick={()=>setModalEditPhotos(true)}>Cancelar</button>
+                      <button type="submit" onClick={()=>setModalEditPhotos(true)}>Salvar</button>
                     </div>
                   </div>
+                </form>
                 </div>
             </div>
           </div>
@@ -229,19 +236,8 @@ export default function PerfilUsuario() {
                     <div className={styles.campoModalColumn}>
                         <span>Descrição*:  </span>
                         <textarea 
-                        required
+                          required
                         ></textarea>
-                    </div>
-                    <div className={styles.campoModalColumn}>
-                    <span>Nota*: </span>
-                    <select id="status">
-                        <option value="1 estrela" selected>1 estrela</option>
-                        <option value="2 estrelas">2 estrelas</option>
-                        <option value="3 estrelas">3 estrelas</option>
-                        <option value="4 estrelas">4 estrelas</option>
-                        <option value="5 estrelas">5 estrelas</option>
-                    </select>
-                    <span className={styles.camposObrigatorios}>* Campos obrigatorios</span>
                     </div>
                     <div className={styles.campoModalColumn}> 
                         <div className={styles.botoesModal}>
@@ -263,7 +259,7 @@ export default function PerfilUsuario() {
                         <img src='img/content/capaPerfil.png' />
                       </div>
                       <div className={styles.fotoPerfil}>
-                          <img src='img/content/fotoPerfil.png' />
+                          <img src={customer?.photoUrl} />
                       </div>
                       <div className={styles.editarIcon}>
                           <button onClick={()=> setModalEditPhotos(false)}><img src='icons/iconEditar.svg' /></button>
@@ -312,10 +308,6 @@ export default function PerfilUsuario() {
                                 <h2>Serviço de maceteira</h2>
                                 <h4>Comentário sobre o serviço prestado:</h4>
                                 <p> Trabalho muito bem feito, recomendo para todas as pessoas que precisam de serviço de pedreiro! </p>
-                                <div className={styleServico.notaDepoimento}>
-                                    <span> Nota: </span>
-                                    <img src="img/content/staricon.svg" />
-                                </div> 
                                 <div className={styleServico.notaDepoimento}>
                                     <button onClick={()=> setModalComment(false)}>EDITAR COMENTÁRIO</button>
                                 </div>  

@@ -11,11 +11,13 @@ import { MenuLogged } from '../components/MenuLogged';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import  Router from 'next/router';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 
 const baseUrl = 'http://localhost:3001/services';
 
 export default function Busca( props ){
-  const { userAuth, isAuthenticated } = useContext(AuthContext);
+  const { userAuth } = useContext(AuthContext);
 
   const [data, setData] = useState(null);
   const url = baseUrl + '?name=' + Router.query.string;
@@ -24,9 +26,9 @@ export default function Busca( props ){
     axios.get(url)
       .then((response) => setData(response.data))
       .catch((err) => {
-        console.error("Vish! " + err);
+        console.error("Erro: " + err);
       })
-  });
+  }, [url]);
 
   var navMenu;
 
@@ -55,35 +57,35 @@ export default function Busca( props ){
               <div onClick={()=> setFiltroSelecionado(0)} className = {filtroSelecionado === 0 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
                 <div className  = {styles.filtro}>
                   <img src='icons/iconTudo.svg'/>
-                  <span> Serviços </span>
+                  <span> Tudo </span>
                 </div>
               </div>
-              <div onClick={()=> setFiltroSelecionado(1)} className = {filtroSelecionado === 1 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
-                <div className  = {styles.filtro}>
+              <div className = {filtroSelecionado === 1 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
+                <div className  = {styles.filtroDisabled}>
                   <img src='icons/iconProfissionais.svg'/>
                   <span> Profissionais </span>
                 </div>
               </div>
-              <div onClick={()=> setFiltroSelecionado(2)} className = {filtroSelecionado === 2 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
-                <div className  = {styles.filtro}>
+              <div className = {filtroSelecionado === 2 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
+                <div onClick={()=> setFiltroSelecionado(2)} className  = {styles.filtro}>
                   <img src='icons/iconServiço.svg'/>
-                  <span> Serviço </span>
+                  <span> Serviços </span>
                 </div>
               </div>
-              <div onClick={()=> setFiltroSelecionado(3)} className = {filtroSelecionado === 3 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
-                <div className  = {styles.filtro}>
+              <div className = {filtroSelecionado === 3 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
+                <div className  = {styles.filtroDisabled}>
                   <img src='icons/iconEndereço.svg'/>
                   <span> Endereço </span>
                 </div>
               </div>
-              <div onClick={()=> setFiltroSelecionado(4)} className = {filtroSelecionado === 4 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
-                <div className  = {styles.filtro}>
+              <div className = {filtroSelecionado === 4 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
+                <div className  = {styles.filtroDisabled}>
                   <img src='icons/iconDisponibilidade.svg'/>
                   <span> Disponibilidade </span>
                 </div>
               </div>
-              <div onClick={()=> setFiltroSelecionado(5)} className = {filtroSelecionado === 5 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
-                <div className  = {styles.filtro}>
+              <div className = {filtroSelecionado === 5 ? `${styles.boxFiltro} ${styles.filtroActive}` : styles.boxFiltro} > 
+                <div className  = {styles.filtroDisabled}>
                   <img src='icons/iconNota.svg'/>
                   <span> Nota </span>
                 </div>
@@ -96,21 +98,21 @@ export default function Busca( props ){
               <li key={service.id}>
                 <div className={styles.boxUsuario}>
                   <div className={styles.usuarioeFoto}>
-                    <img src='img/content/fotoPerfil.png' />
+                    <img src={service.worker.photoUrl} />
                     <div className={styles.usuarioCampos}>
                       <h3>{service.name}</h3>
-                      <h4>Profissão principal: </h4>
-                      <div className = {styles.campoUsuario}>
-                        <span>Cidade: </span>
-                        <span>Itabira-MG</span>
+                      <h4>Profissão principal: {service.worker.mainProfession}</h4>
+                      <div className = {styles.campoUsuario} onClick={() => {Router.push({pathname: 'perfil-trabalhador', query: service.worker})}}>
+                        <span className= {styles.botaoCampo}>Nome do trabalhador: </span>
+                        <span className= {styles.botaoCampo}>{service.worker.fullName}</span>
                       </div>
                       <div className = {styles.campoUsuario}>
-                        <span>Nota: </span>
-                        <img src='img/content/staricon.svg' />
+                        <span>CEP: </span>
+                        <span>{service.worker.cep}</span>
                       </div>
                     </div>
                   </div>
-                <button onClick={() => {Router.push({pathname: '/servico', query: service})}}>
+                <button className= {styles.botaoCampo} onClick={() => {Router.push({pathname: '/servico', query: service})}}>
                   <span>EXIBIR INFORMAÇÕES</span>
                     <img src='icons/iconPlus.svg' />
                   </button>
@@ -124,4 +126,21 @@ export default function Busca( props ){
       
     </>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['tokenQuebraGalho']: token } = parseCookies(ctx);
+
+  if(!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
+
+  return{
+    props: {}
+  }
 }

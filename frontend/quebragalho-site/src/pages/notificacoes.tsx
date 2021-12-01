@@ -4,6 +4,8 @@ import Head from 'next/head';
 import styles from '../styles/pages/Notificacoes.module.scss';
 
 import { MenuLogged } from '../components/MenuLogged';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 
 export default function Notificacoes(){
 return(
@@ -13,7 +15,7 @@ return(
         <meta name='description' content='Projeto Quebra Galho' />
         <link rel='icon' href='/favicon.ico' />
     </Head>
-    <MenuLogged imgLink="img/content/fotoPerfil.png"/>
+    <MenuLogged />
     <main>
       <div className={styles.background}>
         <div className={styles.container}>
@@ -131,4 +133,21 @@ return(
     </main>
   </>
 );
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['tokenQuebraGalho']: token } = parseCookies(ctx);
+
+  if(!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
+
+  return{
+    props: {}
+  }
 }

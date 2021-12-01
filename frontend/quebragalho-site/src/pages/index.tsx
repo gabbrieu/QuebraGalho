@@ -11,12 +11,12 @@ import { AuthContext } from '../context/AuthContext';
 import { MenuLogged } from '../components/MenuLogged';
 
 export default function Home() {
-  const { userAuth, isAuthenticated } = useContext(AuthContext);
+  const { userAuth } = useContext(AuthContext);
 
   var navMenu;
   var criarConta;
 
-  if( userAuth === null ){
+  if( !userAuth ){
     navMenu = <MenuHomePage />
     criarConta = <a href='/criar-usuario'>
       <button>criar conta</button>

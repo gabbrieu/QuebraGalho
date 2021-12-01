@@ -33,6 +33,7 @@ export default function PerfilUsuario() {
     var editDocument;
     //Recuperando informações do worker - get
     const urlWorker = baseUrl + 'worker/' + userAuth?.workerId;
+    const userId = userAuth?.workerId;
   
     useEffect(()=>{
         axios.get(urlWorker)
@@ -40,14 +41,14 @@ export default function PerfilUsuario() {
           .catch((err) => {
             console.error("Vish! " + err);
           })
-    });
+    }, [urlWorker]);
   
     const [document, setDocument] = useState('');
     const [cep, setCEP] = useState('');
     const [phone, setPhone] = useState('');
 
     //Atualizar worker
-    const [updateWorker, setUpdateWorker] = useState({
+    const [editWorker, setEditWorker] = useState({
       fullName: '',
       address: '',
       mainProfession: '',
@@ -57,14 +58,14 @@ export default function PerfilUsuario() {
     });
 
     useEffect(() => {
-      setUpdateWorker({
+      setEditWorker({
         fullName: worker?.fullName,
         address: worker?.address,
         mainProfession: worker?.mainProfession,
         linkedin: worker?.linkedIn,
         description: worker?.description,
         photoUrl: worker?.photoUrl
-      });
+      },);
       setCEP(worker?.cep);
       setDocument(worker?.document);
       setPhone(worker?.cellPhone);
@@ -75,10 +76,10 @@ export default function PerfilUsuario() {
     ]);
 
     function handleEditProfile(e) {
-      const newUpdateWorker = { ...updateWorker };
-      newUpdateWorker[e.target.id] = e.target.value;
-      setUpdateWorker(newUpdateWorker);
-      console.log(newUpdateWorker);
+      const newEditWorker = { ...editWorker };
+      newEditWorker[e.target.id] = e.target.value;
+      setEditWorker(newEditWorker);
+      console.log(newEditWorker);
     }
 
     async function submitEditProfile() {
@@ -88,13 +89,13 @@ export default function PerfilUsuario() {
           urlWorker,
           {
             cellPhone: phone,
-            fullName: updateWorker.fullName,
+            fullName: editWorker.fullName,
             cep: cep,
-            address: updateWorker.address,
-            description: updateWorker.description,
-            linkedIn: updateWorker.linkedin,
-            mainProfession: updateWorker.mainProfession,
-            photoUrl: updateWorker.photoUrl
+            address: editWorker.address,
+            description: editWorker.description,
+            linkedIn: editWorker.linkedin,
+            mainProfession: editWorker.mainProfession,
+            photoUrl: editWorker.photoUrl
           },
           {
             headers: {
@@ -139,14 +140,23 @@ export default function PerfilUsuario() {
 
     /////////Services/////////
     const urlServices = baseUrl + 'services';
-
-    const [manageService, setManageService] = useState(null);
+    const [editService, setEditService] = useState(null);
     const [createService, setCreateService] = useState({
       name: '',
       description: '',
       price: '',
-      workerId: userAuth?.workerId,
+      workerId: '',
     });
+
+    useEffect(() => {
+      setCreateService({
+        name: '',
+        description: '',
+        price: '',
+        workerId: userId,
+      })
+    }, [userId])
+
     //Criação de um serviço - post
     function createServiceHandle(e) {
       const newCreateService = { ...createService };
@@ -185,6 +195,89 @@ export default function PerfilUsuario() {
       }
     }
 
+    //Atualizar service
+    function handleEditService(e) {
+      const newEditService = { ...editService };
+      newEditService[e.target.id] = e.target.value;
+      setEditService(newEditService);
+      console.log(newEditService);
+    }
+    
+    async function submitEditService() {
+      event.preventDefault();
+      try {
+        await axios.patch(
+          (urlServices + '/' + editService.id),
+          {
+            name: editService.name,
+            description: editService.description,
+            price: parseFloat(editService.price),
+          },
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'PATCH ',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        alert('Serviço atualizado!');
+      } catch (err) {
+        alert('Algo deu errado, o serviço não foi atualizado!');
+      }
+    }
+
+    //Deletar service
+    const [deleteServiceId, setDeleteServiceId] = useState();
+    
+    async function submitDeleteService() {
+      event.preventDefault();
+      try {
+        await axios.delete(
+          (urlServices + '/' + deleteServiceId),
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'DELETE ',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        alert('Serviço deletado!');
+      } catch (err) {
+        alert('Algo deu errado, o serviço não foi deletado!');
+      }
+    }
+    
+    //Mostrar cards service
+    function cardService (service) {
+      if( service.status === true ) {
+        return <div className={styles.cardServico}>
+          <img src='img/content/servico.png' />
+          <h3> {service.name} </h3>
+          <div className={styles.descricaoServico}>
+            <span> {service.description} </span>
+          </div>
+          <div className={styles.buttonsCard}>
+            <button onClick= {() => { Router.push({pathname: '/servico', query: service}, '/servico') }}>
+              <span>EXIBIR DETALHES</span>
+              <img src='icons/iconPlus.svg' />
+            </button>
+            <button onClick={()=> (setmodalEditService(false), setEditService(service))}>
+              <span>ALTERAR SERVIÇO</span>
+              <img src='icons/iconEditar.svg' />
+            </button>
+            <button className={styles.botaoDeletar} onClick={()=> (setmodalDeleteService(false), setDeleteServiceId(service.id))}>
+              <span>EXCLUIR SERVIÇO</span>
+              <img src='icons/iconDelete.svg' />
+            </button>
+          </div>
+        </div>
+      }
+    }
+
     return (
       <>
         <Head>
@@ -207,7 +300,7 @@ export default function PerfilUsuario() {
                       id='fullName' 
                       type="text" 
                       defaultValue={worker?.fullName}
-                      value={updateWorker.fullName}
+                      value={editWorker.fullName}
                       required
                     ></input>
                 </div>
@@ -243,7 +336,7 @@ export default function PerfilUsuario() {
                         id='address'  
                         type="text" 
                         defaultValue={worker?.address}
-                        value={updateWorker.address} 
+                        value={editWorker.address} 
                         required
                       ></input>
                   </div>
@@ -267,7 +360,7 @@ export default function PerfilUsuario() {
                         id='mainProfession'  
                         type="text" 
                         defaultValue={worker?.mainProfession}
-                        value={updateWorker.mainProfession} 
+                        value={editWorker.mainProfession} 
                         required></input>
                   </div>
                   <div className={styles.campoModalColumn}>
@@ -277,17 +370,9 @@ export default function PerfilUsuario() {
                         id='linkedin' 
                         type="text" 
                         defaultValue={worker?.linkedIn}
-                        value={updateWorker.linkedin}
+                        value={editWorker.linkedin}
                       ></input>
                   </div>
-                </div>
-                <div className={styles.campoModalColumn}>
-                    <span>Status de Atendimento*: </span>
-                    <select id="status">
-                        <option value="Disponível para trabalho" selected>Disponível para trabalho</option>
-                        <option value="Ocupado no momento">Ocupado no momento</option>
-                        <option value="Indisponível para trabalho">Indisponível para trabalho</option>
-                    </select>
                 </div>
                 <div className={styles.campoModalColumn}>
                     <span>Descrição*:  </span>
@@ -295,7 +380,7 @@ export default function PerfilUsuario() {
                       onChange={(e) => handleEditProfile(e)}
                       id='description'  
                       defaultValue={worker?.description}
-                      value={updateWorker.description} 
+                      value={editWorker.description} 
                       required
                     ></textarea>
                     <span className={styles.camposObrigatorios}>* Campos obrigatorios</span>
@@ -313,27 +398,41 @@ export default function PerfilUsuario() {
             <div className={!modalEditService ? styles.modalContent : ''}>
               <h2>Alterar serviço</h2>
               <div className={styles.camposModal}>
+              <form onSubmit={submitEditService}>
                 <div className={styles.campoModalColumn}>
                     <span>Nome do Serviço*: </span>
-                    <input type="text" value={manageService?.name} required></input>
+                    <input
+                      onChange={(e) => handleEditService(e)}
+                      id='name'   
+                      type="text" 
+                      value={editService?.name} 
+                      required
+                    ></input>
                 </div>
                 <div className={styles.campoModalColumn}>
                     <span>Preço médio*: </span>
-                    <input type="number" value={manageService?.price} required></input>
-                </div>
-                <div className={styles.campoModalColumn}>
-                    <span>Tempo para a conclusão do serviço*: </span>
-                    <input type="text" placeholder="Não tem no banco" required></input>
+                    <input
+                      onChange={(e) => handleEditService(e)}
+                      id='price' 
+                      type="number" 
+                      value={editService?.price} 
+                      required
+                    ></input>
                 </div>
                 <div className={styles.campoModalColumn}>
                     <span>Descrição*:  </span>
-                    <textarea  value={manageService?.description} required></textarea>
+                    <textarea 
+                      onChange={(e) => handleEditService(e)}
+                      id='description' 
+                      value={editService?.description} 
+                      required></textarea>
                     <span className={styles.camposObrigatorios}>* Campos obrigatorios</span>
                 </div>
                 <div className={styles.botoesModal}>
-                  <button onClick={()=>setmodalEditService(true)}>Cancelar</button>
-                  <button onClick={()=>setmodalEditService(true)}>Salvar</button>
+                  <button type="button" onClick={()=>setmodalEditService(true)}>Cancelar</button>
+                  <button type="submit" onClick={()=>setmodalEditService(true)}>Salvar</button>
                 </div>
+              </form>
               </div>
             </div>
           </div>
@@ -348,7 +447,7 @@ export default function PerfilUsuario() {
                       <input 
                         onChange={(e) => handleEditProfile(e)} 
                         type="text" id="photoUrl" 
-                        value={updateWorker.photoUrl} 
+                        value={editWorker.photoUrl} 
                         required
                       ></input>
                   </div>
@@ -367,13 +466,15 @@ export default function PerfilUsuario() {
             <div className={!modalDeleteService ? styles.modalContent : ''}>
                 <h2>Deletar serviço</h2>
                 <div className={styles.camposModal}>
+                <form onSubmit={submitDeleteService}>
                   <span>Tem certeza que deseja deletar este serviço?</span>
                   <div className={styles.campoModalColumn}> 
                     <div className={styles.botoesModal}>
-                      <button onClick={()=>setmodalDeleteService(true)}>Não</button>
-                      <button className={styles.botaoDeletar} onClick={()=>setmodalDeleteService(true)}>Sim</button>
+                      <button type="button" onClick={()=>setmodalDeleteService(true)}>Não</button>
+                      <button type="submit" className={styles.botaoDeletar} onClick={()=>setmodalDeleteService(true)}>Sim</button>
                     </div>
                   </div>
+                </form>
                 </div>
             </div>
           </div>
@@ -408,15 +509,6 @@ export default function PerfilUsuario() {
                     </input>
                 </div>
                 <div className={styles.campoModalColumn}>
-                    <span>Tempo para a conclusão do serviço*: </span>
-                    <input 
-                      type="text" 
-                      placeholder="Não tem no banco" 
-                      //required
-                    >
-                    </input>
-                </div>
-                <div className={styles.campoModalColumn}>
                     <span>Descrição*:  </span>
                     <textarea
                       onChange={(e) => createServiceHandle(e)} 
@@ -430,7 +522,7 @@ export default function PerfilUsuario() {
                 </div>
                 <div className={styles.botoesModal}>
                   <button type="button" onClick={()=>setmodalCreateService(true)}>Cancelar</button>
-                  <button type="submit">Criar</button>
+                  <button type="submit" onClick={()=>setmodalCreateService(true)}>Criar</button>
                 </div>
                 </form>
               </div>
@@ -486,23 +578,6 @@ export default function PerfilUsuario() {
                       <span>Linkedin: </span>
                       <span>{worker?.linkedIn}</span>
                     </div>
-                    <div className={styles.informacaoAdicional}>
-                      <span>Status: </span>
-                      <span className={styles.verdeStatus}>
-                        Disponível para trabalho
-                      </span>
-                    </div>
-                  </div>
-                </section>
-                <section className={styles.numerosPlataforma}>
-                  <h3> Números na plataforma </h3>
-                  <div className={styles.numeroPlataforma}>
-                    <span>Serviços realizados: </span>
-                    <span>20</span>
-                  </div>
-                  <div className={styles.numeroPlataforma}>
-                    <span>Nota média dos serviços prestados: </span>
-                    <span>4.0/5</span>
                   </div>
                 </section>
               </div>
@@ -513,27 +588,7 @@ export default function PerfilUsuario() {
                     <ul className={styles.cardsServicos}>
                       {worker?.services.map((service) =>
                         <li key={service.id}>
-                          <div className={styles.cardServico}>
-                            <img src='img/content/servico.png' />
-                            <h3> {service.name} </h3>
-                            <div className={styles.descricaoServico}>
-                              <span> {service.description} </span>
-                            </div>
-                            <div className={styles.buttonsCard}>
-                              <button onClick= {() => { Router.push({pathname: '/servico', query: service}, '/servico') }}>
-                                <span>EXIBIR DETALHES</span>
-                                <img src='icons/iconPlus.svg' />
-                              </button>
-                              <button onClick={()=> (setmodalEditService(false), setManageService(service))}>
-                                <span>ALTERAR SERVIÇO</span>
-                                <img src='icons/iconEditar.svg' />
-                              </button>
-                              <button className={styles.botaoDeletar} onClick={()=> setmodalDeleteService(false)}>
-                                <span>EXCLUIR SERVIÇO</span>
-                                <img src='icons/iconDelete.svg' />
-                              </button>
-                            </div>
-                          </div>
+                          {cardService(service)}
                         </li>
                       )}
                       <li>

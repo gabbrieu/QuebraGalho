@@ -18,10 +18,10 @@ export const AuthContext = createContext({} as AuthContextType)
 export function AuthProvider({ children }) {
     var userAuth = null;
     const [user, setUser] = useState(null);
-
-    //Verificando se o usuário está logado
-    const isAuthenticated = !!userAuth;
     
+    //Verificando se o usuário está logado
+    var isAuthenticated = !!userAuth;
+
     //Procurando por um token salvo nos cookies
     useEffect(() => {
         const { 'tokenQuebraGalho': token } = parseCookies();

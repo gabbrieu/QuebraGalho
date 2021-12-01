@@ -29,16 +29,15 @@ export function MenuLogged() {
     axios.get(urlUser)
       .then((response) => setUser(response.data))
       .catch((err) => {
-        console.error("Vish! " + err);
+        console.error("Erro: " + err);
       })
-  });
+  }, [urlUser]);
 
   if(userAuth?.type === 'WORKER'){
     userType = <a href='/meu-perfil-trabalhador'>
     <img src= {user?.photoUrl} />
     <div className={styles.euLink}>
       <span> Eu </span>
-      {/* <img src='img/layout/dropdown.svg' /> */}
     </div>
   </a>
   }
